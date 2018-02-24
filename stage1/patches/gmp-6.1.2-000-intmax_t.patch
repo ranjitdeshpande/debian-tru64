@@ -1,0 +1,28 @@
+diff -purN gmp-6.1.2/printf/doprnt.c gmp-6.1.2-new/printf/doprnt.c
+--- gmp-6.1.2/printf/doprnt.c	2016-12-16 07:45:27 -0800
++++ gmp-6.1.2-new/printf/doprnt.c	2018-02-23 15:45:38 -0800
+@@ -51,6 +51,10 @@ see https://www.gnu.org/licenses/.  */
+ # endif
+ #endif
+ 
++#ifdef __osf__
++typedef int64_t intmax_t;
++#endif
++
+ #if HAVE_LANGINFO_H
+ #include <langinfo.h>  /* for nl_langinfo */
+ #endif
+diff -purN gmp-6.1.2/scanf/doscan.c gmp-6.1.2-new/scanf/doscan.c
+--- gmp-6.1.2/scanf/doscan.c	2016-12-16 07:45:27 -0800
++++ gmp-6.1.2-new/scanf/doscan.c	2018-02-23 18:32:40 -0800
+@@ -59,6 +59,10 @@ see https://www.gnu.org/licenses/.  */
+ # endif
+ #endif
+ 
++#ifdef __osf__
++typedef int64_t intmax_t;
++#endif
++
+ #if HAVE_SYS_TYPES_H
+ #include <sys/types.h> /* for quad_t */
+ #endif

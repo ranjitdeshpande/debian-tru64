@@ -8,6 +8,7 @@ Project builds in two stages:
 
 Stage1: Creates a bootstrap environment using open source packages
         from the Tru64 distribution.
+
 Stage2: Compiles everything with the bootstrapped toolchain.
 
 

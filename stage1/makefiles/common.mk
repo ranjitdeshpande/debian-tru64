@@ -16,11 +16,12 @@
 
 include makefiles/urls.mk
 
-DOWNLOAD_DIR	:= $(shell pwd)/download
+DOWNLOAD_DIR	:= $(shell pwd)/../download
 BUILD_DIR	:= $(shell pwd)/build
 TARGET_DIR	:= $(shell pwd)/target
 PATCH_DIR	:= $(shell pwd)/patches
 PATH 		:= $(TARGET_DIR)/usr/bin:$(TARGET_DIR)/usr/sbin:$(TARGET_DIR)/bin:$(PATH)
+LD_LIBRARY_PATH := $(TARGET_DIR)/usr/lib:$(LD_LIBRARY_PATH)
 PKGPATCHES	:= $(shell ls $(PATCH_DIR)/$(NAME)-$(VERSION)-*.patch 2> /dev/null)
 
 PKGSRC		= $(filter $(NAME)-$(VERSION)%,$(foreach url,$(URLS),$(lastword $(subst /, ,$(url)))))
@@ -33,4 +34,4 @@ CDOBJDIR	= cd $(OBJDIR)
 CLEANOBJDIR	= rm -rf $(OBJDIR)
 endif
 
-
+export CFLAGS CPPFLAGS CXXFLAGS LDFLAGS PATH LD_LIBRARY_PATH

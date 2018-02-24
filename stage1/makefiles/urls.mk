@@ -24,4 +24,6 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
         http://mirrors.kernel.org/gnu/gmp/gmp-6.1.2.tar.xz \
 	http://mirrors.kernel.org/gnu/libiconv/libiconv-1.15.tar.gz \
 	http://mirrors.kernel.org/gnu/gettext/gettext-0.19.8.tar.gz \
-	http://mirrors.kernel.org/gnu/patch/patch-2.7.6.tar.gz
+	http://mirrors.kernel.org/gnu/patch/patch-2.7.6.tar.gz \
+	http://mirrors.kernel.org/gnu/mpfr/mpfr-3.1.6.tar.gz \
+	http://mirrors.kernel.org/gnu/mpc/mpc-1.0.3.tar.gz
