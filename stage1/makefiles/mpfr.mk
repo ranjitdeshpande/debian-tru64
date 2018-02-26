@@ -21,7 +21,6 @@ OBJDIR		:= __obj
 
 CPPFLAGS	= -I$(TARGET_DIR)/usr/include
 LDFLAGS		= -L$(TARGET_DIR)/usr/lib
-export CPPFLAGS LDFLAGS
 
 include makefiles/pkgbuild.mk
 

@@ -14,12 +14,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-NAME		:= mpc
-VERSION		:= 1.0.3
-CONFIG_FLAGS	:= --enable-shared 
+NAME		:= isl
+VERSION		:= 0.11.1
+CONFIG_FLAGS	:= --enable-shared --with-gmp=system \
+		   --with-gmp-prefix=$(TARGET_DIR)/usr --with-gcc-arch=ev56
 OBJDIR		:= __obj
 
 CPPFLAGS	= -I$(TARGET_DIR)/usr/include
 LDFLAGS		= -L$(TARGET_DIR)/usr/lib
 
 include makefiles/pkgbuild.mk
+

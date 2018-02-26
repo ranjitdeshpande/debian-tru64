@@ -54,7 +54,7 @@ endif
 	@if [ -n "$(PKGPATCHES)" ]; then \
 		echo "Patching $(NAME)-$(VERSION)"; \
 		cd $(PKGBUILDDIR); \
-		for p in "$(PKGPATCHES)"; do \
+		for p in $(PKGPATCHES); do \
 			patch -p1 < $$p; \
 		done; \
 	fi

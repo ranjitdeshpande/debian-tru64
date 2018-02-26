@@ -26,4 +26,7 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	http://mirrors.kernel.org/gnu/gettext/gettext-0.19.8.tar.gz \
 	http://mirrors.kernel.org/gnu/patch/patch-2.7.6.tar.gz \
 	http://mirrors.kernel.org/gnu/mpfr/mpfr-3.1.6.tar.gz \
-	http://mirrors.kernel.org/gnu/mpc/mpc-1.0.3.tar.gz
+	http://mirrors.kernel.org/gnu/mpc/mpc-1.0.3.tar.gz \
+	https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.11.1.tar.bz2 \
+	https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz \
+	ftp://ftp.cs.unipr.it/pub/ppl/releases/0.12.1/ppl-0.12.1.tar.xz
