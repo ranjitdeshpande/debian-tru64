@@ -14,13 +14,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-PKGS = patch make sed gawk zlib gzip bzip2 xz tar gmp mpfr mpc \
-       binutils gcc
+NAME		:= xz
+VERSION		:= 5.2.3
+CONFIG_FLAGS	:=
+OBJDIR		:= __obj
 
-all clean clobber:
-	@for pkg in $(PKGS); do \
-		make -f makefiles/$$pkg.mk $@; \
-		if [ $$? != "0" ]; then \
-			exit 1; \
-		fi; \
-	done
+CPPFLAGS	= -I$(PKGBUILDDIR) -pthread
+LIBS		= -lpthread
+
+export LIBS
+
+include makefiles/pkgbuild.mk

@@ -14,13 +14,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-PKGS = patch make sed gawk zlib gzip bzip2 xz tar gmp mpfr mpc \
-       binutils gcc
+NAME		:= binutils
+VERSION		:= 2.24
+CONFIG_FLAGS	= --enable-shared --with-gmp=$(TARGET_DIR)/usr \
+		   --with-isl=$(TARGET_DIR)/usr --with-mpfr=$(TARGET_DIR)/usr \
+		   --with-mpc=$(TARGET_DIR)/usr --with-system-zlib \
+		   --with-cloog=$(TARGET_DIR)/usr --enable-cloog-backend=isl \
+		   --disable-werror
+OBJDIR		:= __obj
 
-all clean clobber:
-	@for pkg in $(PKGS); do \
-		make -f makefiles/$$pkg.mk $@; \
-		if [ $$? != "0" ]; then \
-			exit 1; \
-		fi; \
-	done
+CPPFLAGS	= -I$(TARGET_DIR)/usr/include
+LDFLAGS		= -L$(TARGET_DIR)/usr/lib
+
+include makefiles/pkgbuild.mk

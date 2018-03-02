@@ -14,13 +14,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-PKGS = patch make sed gawk zlib gzip bzip2 xz tar gmp mpfr mpc \
-       binutils gcc
+NAME		:= zlib
+VERSION		:= 1.2.11
+CONFIG_FLAGS	:=
+OBJDIR		:= __obj
 
-all clean clobber:
-	@for pkg in $(PKGS); do \
-		make -f makefiles/$$pkg.mk $@; \
-		if [ $$? != "0" ]; then \
-			exit 1; \
-		fi; \
-	done
+CFLAGS		:= -O2
+
+include makefiles/pkgbuild.mk
