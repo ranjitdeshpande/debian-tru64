@@ -16,11 +16,11 @@
 
 URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
         https://zlib.net/zlib-1.2.11.tar.gz \
+	http://mirrors.kernel.org/gnu/sed/sed-4.2.tar.gz \
         http://mirrors.kernel.org/gnu/gzip/gzip-1.9.tar.gz \
         http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz \
         https://tukaani.org/xz/xz-5.2.3.tar.gz \
         http://mirrors.kernel.org/gnu/tar/tar-1.30.tar.gz \
-        http://mirrors.kernel.org/gnu/sed/sed-4.4.tar.xz \
         http://mirrors.kernel.org/gnu/gmp/gmp-6.1.2.tar.xz \
 	http://mirrors.kernel.org/gnu/libiconv/libiconv-1.15.tar.gz \
 	http://mirrors.kernel.org/gnu/gettext/gettext-0.19.8.tar.gz \

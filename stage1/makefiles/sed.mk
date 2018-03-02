@@ -15,7 +15,7 @@
 #
 
 NAME		:= sed
-VERSION		:= 4.4
+VERSION		:= 4.2
 CONFIG_FLAGS	:=
 OBJDIR		:= __obj
 
