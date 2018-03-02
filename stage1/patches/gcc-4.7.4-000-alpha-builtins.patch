@@ -1,0 +1,33 @@
+diff -purN gcc-4.7.4/gcc/config/alpha/driver-alpha.c gcc-4.7.4-patched/gcc/config/alpha/driver-alpha.c
+--- gcc-4.7.4/gcc/config/alpha/driver-alpha.c	2011-07-29 08:34:33 -0700
++++ gcc-4.7.4-patched/gcc/config/alpha/driver-alpha.c	2018-03-01 13:20:01 -0800
+@@ -39,6 +39,15 @@ along with GCC; see the file COPYING3.
+ #define AMASK_LOCKPFTCHOK  0x1000       /* Safe to prefetch lock cache
+ 					   block.  */
+ 
++#ifndef __GNUC__
++extern long asm(const char *, ...);
++#pragma intrinsic(asm)
++
++#define __implver()	asm("implver %v0")
++#define __amask(mask)	asm("amask %a0, %v0", mask)
++#endif
++
++
+ /* This will be called by the spec parser in gcc.c when it sees
+    a %:local_cpu_detect(args) construct.  Currently it will be called
+    with either "cpu" or "tune" as argument depending on if -mcpu=native
+@@ -80,8 +89,13 @@ host_detect_local_cpu (int argc, const c
+   if (strcmp (argv[0], "cpu") && strcmp (argv[0], "tune"))
+     return NULL;
+ 
++#if defined (__GNUC__)
+   implver = __builtin_alpha_implver ();
+   amask = __builtin_alpha_amask (~0L);
++#elif defined (__osf__)
++  implver = __implver();
++  amask = __amask(~0L);
++#endif
+   cpu = NULL;
+ 
+   for (i = 0; cpu_types[i].cpu != NULL; i++)
