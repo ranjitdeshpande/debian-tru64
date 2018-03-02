@@ -1,0 +1,34 @@
+diff -purN xz-5.2.3/configure xz-5.2.3-patched/configure
+--- xz-5.2.3/configure	2016-12-30 03:27:04 -0800
++++ xz-5.2.3-patched/configure	2018-02-28 11:15:48 -0800
+@@ -5894,7 +5894,7 @@ ac_save_CC=$CC
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ #include <stdarg.h>
+-#include <stdbool.h>
++#include "stdbool.h"
+ #include <stdlib.h>
+ #include <wchar.h>
+ #include <stdio.h>
+@@ -17415,7 +17415,7 @@ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+-             #include <stdbool.h>
++             #include "stdbool.h"
+              #ifndef bool
+               "error: bool is not defined"
+              #endif
+diff -purN xz-5.2.3/stdbool.h xz-5.2.3-patched/stdbool.h
+--- xz-5.2.3/stdbool.h	1969-12-31 16:00:00 -0800
++++ xz-5.2.3-patched/stdbool.h	2018-02-28 11:19:31 -0800
+@@ -0,0 +1,9 @@
++#ifndef _STDBOOL_H_
++#define _STDBOOL_H_
++
++#define bool				_Bool
++#define true				1
++#define false				0
++#define __bool_true_false_are_defined	1
++
++#endif
