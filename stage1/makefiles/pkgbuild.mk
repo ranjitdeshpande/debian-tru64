@@ -51,11 +51,11 @@ ifneq ($(PKGCUSTOM_PATCH),)
 	# Custom patches used before we build the patch utility
 	$(PKGCUSTOM_PATCH)
 endif
-	@if [ -n "$(PKGPATCHES)" ]; then \
+	@if [ "$(PKGPATCHES)" != "" ]; then \
 		echo "Patching $(NAME)-$(VERSION)"; \
 		cd $(PKGBUILDDIR); \
-		for p in $(PKGPATCHES); do \
-			patch -p1 < $$p; \
+		for p in dummy $(PKGPATCHES); do \
+			[ $$p != dummy ] && patch -p1 < $$p; \
 		done; \
 	fi
 	@touch $@
@@ -69,7 +69,7 @@ $(PKGBUILDDIR)/.configured: $(PKGBUILDDIR)/.patched
 
 $(PKGBUILDDIR)/.built: $(PKGBUILDDIR)/.configured
 	@echo "Building $(NAME)-$(VERSION)"
-	@(cd $(PKGBUILDDIR); $(CDOBJDIR); make)
+	@(cd $(PKGBUILDDIR); $(CDOBJDIR); make $(MAKEVARS))
 	@touch $@
 
 $(PKGBUILDDIR)/.installed: $(PKGBUILDDIR)/.built

@@ -16,7 +16,7 @@
 
 NAME		:= isl
 VERSION		:= 0.11.1
-CONFIG_FLAGS	:= --enable-shared --with-gmp=system \
+CONFIG_FLAGS	= --enable-shared --with-gmp=system \
 		   --with-gmp-prefix=$(TARGET_DIR)/usr --with-gcc-arch=ev56
 OBJDIR		:= __obj
 

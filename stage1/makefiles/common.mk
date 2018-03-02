@@ -21,7 +21,7 @@ BUILD_DIR	:= $(shell pwd)/build
 TARGET_DIR	:= $(shell pwd)/target
 PATCH_DIR	:= $(shell pwd)/patches
 PATH 		:= $(TARGET_DIR)/usr/bin:$(TARGET_DIR)/usr/sbin:$(TARGET_DIR)/bin:$(PATH)
-LD_LIBRARY_PATH := $(TARGET_DIR)/usr/lib:$(LD_LIBRARY_PATH)
+LD_LIBRARY_PATH := $(LD_LIBRARY_PATH):$(TARGET_DIR)/usr/lib
 PKGPATCHES	:= $(shell ls $(PATCH_DIR)/$(NAME)-$(VERSION)-*.patch 2> /dev/null)
 
 PKGSRC		= $(filter $(NAME)-$(VERSION)%,$(foreach url,$(URLS),$(lastword $(subst /, ,$(url)))))
@@ -32,6 +32,10 @@ ifneq ($(OBJDIR),)
 MKOBJDIR	= mkdir -p $(OBJDIR)
 CDOBJDIR	= cd $(OBJDIR)
 CLEANOBJDIR	= rm -rf $(OBJDIR)
+else
+MKOBJDIR	= /bin/true
+CDOBJDIR	= /bin/true
+CLEANOBJDIR	= /bin/true
 endif
 
 export CFLAGS CPPFLAGS CXXFLAGS LDFLAGS PATH LD_LIBRARY_PATH

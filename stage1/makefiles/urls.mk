@@ -29,4 +29,9 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	http://mirrors.kernel.org/gnu/mpc/mpc-1.0.3.tar.gz \
 	https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.11.1.tar.bz2 \
 	https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz \
-	ftp://ftp.cs.unipr.it/pub/ppl/releases/0.12.1/ppl-0.12.1.tar.xz
+	ftp://ftp.cs.unipr.it/pub/ppl/releases/0.12.1/ppl-0.12.1.tar.xz \
+	http://mirrors.kernel.org/gnu/binutils/binutils-2.24.tar.bz2 \
+	http://mirrors.kernel.org/gnu/gcc/gcc-4.7.4/gcc-4.7.4.tar.bz2 \
+	ftp://xmlsoft.org/libxml2/libxml2-2.9.7.tar.gz \
+	ftp://xmlsoft.org/libxml2/libxslt-1.1.32.tar.gz \
+	http://mirrors.kernel.org/gnu/gawk/gawk-3.1.8.tar.gz

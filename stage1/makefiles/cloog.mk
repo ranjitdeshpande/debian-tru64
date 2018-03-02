@@ -16,7 +16,7 @@
 
 NAME		:= cloog
 VERSION		:= 0.18.1
-CONFIG_FLAGS	:= --enable-shared --with-gmp=system \
+CONFIG_FLAGS	= --enable-shared --with-gmp=system \
 		   --with-gmp-prefix=$(TARGET_DIR)/usr \
 		   --with-isl=system --with-isl-prefix=$(TARGET_DIR)/usr \
 		   --with-gcc-arch=ev56
@@ -24,6 +24,8 @@ OBJDIR		:= __obj
 
 CPPFLAGS	= -I$(TARGET_DIR)/usr/include
 LDFLAGS		= -L$(TARGET_DIR)/usr/lib
+CFLAGS		= -O2
+MAKEVARS	= CFLAGS_WARN=""
 
 include makefiles/pkgbuild.mk
 

@@ -16,7 +16,7 @@
 
 NAME		:= ppl
 VERSION		:= 0.12.1
-CONFIG_FLAGS	:= --enable-shared --with-gmp=$(TARGET_DIR)/usr \
+CONFIG_FLAGS	= --enable-shared --with-gmp=$(TARGET_DIR)/usr \
 		   --enable-interfaces=c --disable-static
 OBJDIR		:= __obj
 
