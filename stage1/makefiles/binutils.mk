@@ -17,10 +17,8 @@
 NAME		:= binutils
 VERSION		:= 2.24
 CONFIG_FLAGS	= --enable-shared --with-gmp=$(TARGET_DIR)/usr \
-		   --with-isl=$(TARGET_DIR)/usr --with-mpfr=$(TARGET_DIR)/usr \
-		   --with-mpc=$(TARGET_DIR)/usr --with-system-zlib \
-		   --with-cloog=$(TARGET_DIR)/usr --enable-cloog-backend=isl \
-		   --disable-werror
+		   --with-mpfr=$(TARGET_DIR)/usr --with-mpc=$(TARGET_DIR)/usr \
+		   --with-system-zlib --disable-werror
 OBJDIR		:= __obj
 
 CPPFLAGS	= -I$(TARGET_DIR)/usr/include
