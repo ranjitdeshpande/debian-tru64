@@ -14,14 +14,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-NAME		:= gettext
-VERSION		:= 0.19.8
-CONFIG_FLAGS	= --disable-java --enable-threads=posix \
-		  --disable-openmp --disable-curses --without-git \
-		  --with-included-glib --without-emacs--with-included-libcroco \
-		  --with-included-gettext --with-included-libxml \
-		  --with-libiconv-prefix=$(TARGET_DIR)/usr
-
+NAME		:= emacs
+VERSION		:= 23.4
+CONFIG_FLAGS	= --without-xim --with-x-toolkit=no --without-x
 OBJDIR		:= __obj
+
+ac_cv_header_getopt_h = no
+export ac_cv_header_getopt_h
 
 include makefiles/pkgbuild.mk
