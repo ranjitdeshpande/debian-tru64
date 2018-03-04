@@ -1,4 +1,4 @@
-diff -purN sed-4.4/lib/getprogname.c sed-4.4-new/lib/getprogname.c
+diff -purN gzip-1.9/lib/getprogname.c gzip-1.9-new/lib/getprogname.c
 --- gzip-1.9/lib/getprogname.c	2018-02-23 15:48:57 -0800
 +++ gzip-1.9-new/lib/getprogname.c	2017-01-16 21:36:00 -0800
 @@ -43,7 +43,7 @@
