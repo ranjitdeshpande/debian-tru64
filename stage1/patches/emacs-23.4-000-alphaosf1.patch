@@ -1,0 +1,697 @@
+diff -purN emacs-23.4-orig/configure emacs-23.4/configure
+--- emacs-23.4-orig/configure	2012-01-19 07:01:37.000000000 -0800
++++ emacs-23.4/configure	2018-03-04 10:11:47.000000000 -0800
+@@ -3146,6 +3146,11 @@ $as_echo "#define HAVE_CRTIN /**/" >>con
+     esac
+   ;;
+ 
++  ## DEC OSF1/Tru64
++  alpha*-dec-osf5* )
++    machine=alpha opsys=osf5-0
++  ;;
++
+   alpha*-*-linux-gnu* )
+     machine=alpha opsys=gnu-linux
+   ;;
+diff -purN emacs-23.4-orig/src/s/bsd386.h emacs-23.4/src/s/bsd386.h
+--- emacs-23.4-orig/src/s/bsd386.h	1969-12-31 16:00:00.000000000 -0800
++++ emacs-23.4/src/s/bsd386.h	2018-03-04 10:16:22.000000000 -0800
+@@ -0,0 +1,69 @@
++/* s/ file for bsd386 system.
++
++   Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006,
++                 2007, 2008  Free Software Foundation, Inc.
++
++This file is part of GNU Emacs.
++
++GNU Emacs is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 3, or (at your option)
++any later version.
++
++GNU Emacs is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License
++along with GNU Emacs; see the file COPYING.  If not, write to
++the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
++Boston, MA 02110-1301, USA.  */
++
++
++#include "bsd4-3.h"
++
++#ifndef __bsdi__
++#define __bsdi__ 1
++#endif
++
++#define DECLARE_GETPWUID_WITH_UID_T
++
++#define SIGNALS_VIA_CHARACTERS
++
++#define PENDING_OUTPUT_COUNT(FILE) ((FILE)->_p - (FILE)->_bf._base)
++#define A_TEXT_OFFSET(x)    (sizeof (struct exec))
++#define A_TEXT_SEEK(hdr) (N_TXTOFF(hdr) + A_TEXT_OFFSET(hdr))
++
++#define LIBS_DEBUG
++#define LIB_X11_LIB -L/usr/X11/lib -lX11
++#define LIBS_SYSTEM -lutil -lkvm -lcompat
++
++#define HAVE_GETLOADAVG 1
++
++#undef BSD_PGRPS
++
++/* System uses OXTABS instead of the expected TAB3.
++   (Copied from netbsd.h.)  */
++#define TABDLY OXTABS
++#define TAB3 OXTABS
++
++#define SYSV_SYSTEM_DIR
++
++#define HAVE_TERMIOS
++#define NO_TERMIO
++
++#define WAITTYPE int
++/* get this since it won't be included if WAITTYPE is defined */
++#ifdef emacs
++#include <sys/wait.h>
++#endif
++#define WRETCODE(w) WEXITSTATUS(w)
++#ifndef WCOREDUMP
++#define WCOREDUMP(w) ((w) & 0200)
++#endif
++
++#define GETPGRP_NO_ARG 1
++
++/* arch-tag: 867e3bb8-e9df-4763-9c82-8f4accb8209e
++   (do not change this comment) */
+diff -purN emacs-23.4-orig/src/s/bsd4-1.h emacs-23.4/src/s/bsd4-1.h
+--- emacs-23.4-orig/src/s/bsd4-1.h	1969-12-31 16:00:00.000000000 -0800
++++ emacs-23.4/src/s/bsd4-1.h	2018-03-04 10:16:22.000000000 -0800
+@@ -0,0 +1,133 @@
++/* Definitions file for GNU Emacs running on bsd 4.1.
++   Copyright (C) 1985, 1986, 1999, 2001, 2002, 2003, 2004,
++                 2005, 2006, 2007, 2008  Free Software Foundation, Inc.
++
++This file is part of GNU Emacs.
++
++GNU Emacs is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 3, or (at your option)
++any later version.
++
++GNU Emacs is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License
++along with GNU Emacs; see the file COPYING.  If not, write to
++the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
++Boston, MA 02110-1301, USA.  */
++
++
++/*
++ *	Define symbols to identify the version of Unix this is.
++ *	Define all the symbols that apply correctly.
++ */
++
++#define BSD4_1
++
++#define BSD_SYSTEM
++
++/* SYSTEM_TYPE should indicate the kind of system you are using.
++ It sets the Lisp variable system-type.  */
++
++#define SYSTEM_TYPE "berkeley-unix"
++
++/* nomultiplejobs should be defined if your system's shell
++ does not have "job control" (the ability to stop a program,
++ run some other program, then continue the first one).  */
++
++/* #define NOMULTIPLEJOBS */
++
++/* Default is to set interrupt_input to 1: do input buffering within Emacs */
++
++#define INTERRUPT_INPUT
++
++/* First pty name is /dev/ptyp0.  */
++
++#define FIRST_PTY_LETTER 'p'
++
++/*
++ *	Define HAVE_PTYS if the system supports pty devices.
++ */
++
++/* #define HAVE_PTYS */
++
++/* Define this macro if system defines a type `union wait'.  */
++
++#define HAVE_UNION_WAIT
++
++/* Define HAVE_SOCKETS if system supports 4.2-compatible sockets.  */
++
++/* #define HAVE_SOCKETS */
++
++/*
++ *	Define NONSYSTEM_DIR_LIBRARY to make Emacs emulate
++ *      The 4.2 opendir, etc., library functions.
++ */
++
++#define NONSYSTEM_DIR_LIBRARY
++
++/* Define this symbol if your system has the functions bcopy, etc. */
++
++/* #define BSTRING */
++
++/* subprocesses should be defined if you want to
++   have code for asynchronous subprocesses
++   (as used in M-x compile and M-x shell).
++   This is generally OS dependent, and not supported
++   under most USG systems. */
++
++#define subprocesses
++
++/* If your system uses COFF (Common Object File Format) then define the
++   preprocessor symbol "COFF". */
++
++/* #define COFF */
++
++/* define MAIL_USE_FLOCK if the mailer uses flock
++   to interlock access to /usr/spool/mail/$USER.
++   The alternative is that a lock file named
++   /usr/spool/mail/$USER.lock.  */
++
++/* #define MAIL_USE_FLOCK */
++
++/* Define CLASH_DETECTION if you want lock files to be written
++   so that Emacs can tell instantly when you try to modify
++   a file that someone else has modified in his Emacs.  */
++
++#undef CLASH_DETECTION    /* Might work; not tried yet.  */
++
++/* The file containing the kernel's symbol table is called /vmunix.  */
++
++#define KERNEL_FILE "/vmunix"
++
++/* The symbol in the kernel where the load average is found
++   is named _avenrun.  */
++
++#define LDAV_SYMBOL "_avenrun"
++
++/* Special hacks needed to make Emacs run on this system.  */
++
++/* Make the function `signal' act as in 4.2.  */
++
++#define signal sigset
++
++#define _longjmp longjmp
++#define _setjmp setjmp
++
++#define lstat stat
++
++/* Names of flags for open.  */
++#define O_RDONLY 0
++#define O_WRONLY 1
++#define O_RDWR 2
++#define O_EXCL	2000
++#define O_CREAT 1000
++
++/* Special library needed for linking for 4.1.  */
++#define LIBS_SYSTEM -ljobs
++
++/* arch-tag: de56716a-ed9b-4851-a5c5-c882efaf9931
++   (do not change this comment) */
+diff -purN emacs-23.4-orig/src/s/bsd4-2.h emacs-23.4/src/s/bsd4-2.h
+--- emacs-23.4-orig/src/s/bsd4-2.h	1969-12-31 16:00:00.000000000 -0800
++++ emacs-23.4/src/s/bsd4-2.h	2018-03-04 10:16:22.000000000 -0800
+@@ -0,0 +1,124 @@
++/* Definitions file for GNU Emacs running on bsd 4.2
++   Copyright (C) 1985, 1986, 1994, 2001, 2002, 2003, 2004,
++                 2005, 2006, 2007, 2008  Free Software Foundation, Inc.
++
++This file is part of GNU Emacs.
++
++GNU Emacs is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 3, or (at your option)
++any later version.
++
++GNU Emacs is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License
++along with GNU Emacs; see the file COPYING.  If not, write to
++the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
++Boston, MA 02110-1301, USA.  */
++
++
++/*
++ *	Define symbols to identify the version of Unix this is.
++ *	Define all the symbols that apply correctly.
++ */
++
++#ifndef BSD4_2
++#define BSD4_2 1
++#endif /* BSD4_2 */
++
++#ifndef BSD_SYSTEM
++#define BSD_SYSTEM 42
++#endif /* BSD_SYSTEM */
++
++/* SYSTEM_TYPE should indicate the kind of system you are using.
++ It sets the Lisp variable system-type.  */
++
++#define SYSTEM_TYPE "berkeley-unix"
++
++/* nomultiplejobs should be defined if your system's shell
++ does not have "job control" (the ability to stop a program,
++ run some other program, then continue the first one).  */
++
++/* #define NOMULTIPLEJOBS */
++
++/* Default is to set interrupt_input to 1: do input buffering within Emacs */
++
++#define INTERRUPT_INPUT
++
++/* First pty name is /dev/ptyp0.  */
++
++#define FIRST_PTY_LETTER 'p'
++
++/*
++ *	Define HAVE_PTYS if the system supports pty devices.
++ */
++
++#define HAVE_PTYS
++
++/* Define this macro if system defines a type `union wait'.  */
++
++#define HAVE_UNION_WAIT
++
++/* Define HAVE_SOCKETS if system supports 4.2-compatible sockets.  */
++
++#define HAVE_SOCKETS
++
++/*
++ *	Define NONSYSTEM_DIR_LIBRARY to make Emacs emulate
++ *      The 4.2 opendir, etc., library functions.
++ */
++
++/* #define NONSYSTEM_DIR_LIBRARY */
++
++/* Define this symbol if your system has the functions bcopy, etc. */
++
++#define BSTRING
++
++/* subprocesses should be defined if you want to
++   have code for asynchronous subprocesses
++   (as used in M-x compile and M-x shell).
++   This is generally OS dependent, and not supported
++   under most USG systems. */
++
++#define subprocesses
++
++/* If your system uses COFF (Common Object File Format) then define the
++   preprocessor symbol "COFF". */
++
++/* #define COFF */
++
++/* define MAIL_USE_FLOCK if the mailer uses flock
++   to interlock access to /usr/spool/mail/$USER.
++   The alternative is that a lock file named
++   /usr/spool/mail/$USER.lock.  */
++
++/* #define MAIL_USE_FLOCK */
++
++/* Define CLASH_DETECTION if you want lock files to be written
++   so that Emacs can tell instantly when you try to modify
++   a file that someone else has modified in his Emacs.  */
++
++#define CLASH_DETECTION
++
++/* The file containing the kernel's symbol table is called /vmunix.  */
++
++#define KERNEL_FILE "/vmunix"
++
++/* The symbol in the kernel where the load average is found
++   is named _avenrun.  */
++
++#define LDAV_SYMBOL "_avenrun"
++
++/* Send signals to subprocesses by "typing" special chars at them.  */
++
++#define SIGNALS_VIA_CHARACTERS
++
++/* Process groups work in the traditional BSD manner.  */
++
++#define BSD_PGRPS
++
++/* arch-tag: 38ca640f-549e-4726-a257-71048ab4c480
++   (do not change this comment) */
+diff -purN emacs-23.4-orig/src/s/bsd4-3.h emacs-23.4/src/s/bsd4-3.h
+--- emacs-23.4-orig/src/s/bsd4-3.h	1969-12-31 16:00:00.000000000 -0800
++++ emacs-23.4/src/s/bsd4-3.h	2018-03-04 10:16:22.000000000 -0800
+@@ -0,0 +1,123 @@
++/* Definitions file for GNU Emacs running on bsd 4.3
++   Copyright (C) 1985, 1986, 2001, 2002, 2003, 2004,
++                 2005, 2006, 2007, 2008  Free Software Foundation, Inc.
++
++This file is part of GNU Emacs.
++
++GNU Emacs is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 3, or (at your option)
++any later version.
++
++GNU Emacs is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License
++along with GNU Emacs; see the file COPYING.  If not, write to
++the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
++Boston, MA 02110-1301, USA.  */
++
++
++/*
++ *	Define symbols to identify the version of Unix this is.
++ *	Define all the symbols that apply correctly.
++ */
++
++/* We give these symbols the numeric values found in <sys/param.h> to
++   avoid warnings about redefined macros.  */
++#ifndef BSD4_3
++#define BSD4_3 1
++#endif /* BSD4_3 */
++
++#ifndef BSD_SYSTEM
++#define BSD_SYSTEM 43
++#endif /* BSD_SYSTEM */
++
++/* SYSTEM_TYPE should indicate the kind of system you are using.
++ It sets the Lisp variable system-type.  */
++
++#define SYSTEM_TYPE "berkeley-unix"
++
++/* nomultiplejobs should be defined if your system's shell
++ does not have "job control" (the ability to stop a program,
++ run some other program, then continue the first one).  */
++
++/* #define NOMULTIPLEJOBS */
++
++/* Do not use interrupt_input = 1 by default, because in 4.3
++   we can make noninterrupt input work properly.  */
++
++#undef INTERRUPT_INPUT
++
++/* First pty name is /dev/ptyp0.  */
++
++#define FIRST_PTY_LETTER 'p'
++
++/*
++ *	Define HAVE_PTYS if the system supports pty devices.
++ */
++
++#define HAVE_PTYS
++
++/* Define this macro if system defines a type `union wait'.  */
++
++#define HAVE_UNION_WAIT
++
++/* Define HAVE_SOCKETS if system supports 4.2-compatible sockets.  */
++
++#define HAVE_SOCKETS
++
++/*
++ *	Define NONSYSTEM_DIR_LIBRARY to make Emacs emulate
++ *      The 4.2 opendir, etc., library functions.
++ */
++
++/* #define NONSYSTEM_DIR_LIBRARY */
++
++/* Define this symbol if your system has the functions bcopy, etc. */
++
++#define BSTRING
++
++/* subprocesses should be defined if you want to
++   have code for asynchronous subprocesses
++   (as used in M-x compile and M-x shell).
++   This is generally OS dependent, and not supported
++   under most USG systems. */
++
++#define subprocesses
++
++/* If your system uses COFF (Common Object File Format) then define the
++   preprocessor symbol "COFF". */
++
++/* #define COFF */
++
++/* define MAIL_USE_FLOCK if the mailer uses flock
++   to interlock access to /usr/spool/mail/$USER.
++   The alternative is that a lock file named
++   /usr/spool/mail/$USER.lock.  */
++
++#define MAIL_USE_FLOCK
++
++/* Define CLASH_DETECTION if you want lock files to be written
++   so that Emacs can tell instantly when you try to modify
++   a file that someone else has modified in his Emacs.  */
++
++#define CLASH_DETECTION
++
++/* The file containing the kernel's symbol table is called /vmunix.  */
++
++#define KERNEL_FILE "/vmunix"
++
++/* The symbol in the kernel where the load average is found
++   is named _avenrun.  */
++
++#define LDAV_SYMBOL "_avenrun"
++
++/* Send signals to subprocesses by "typing" special chars at them.  */
++
++#define SIGNALS_VIA_CHARACTERS
++
++/* arch-tag: 0c367245-bde3-492e-9029-3ff6898beb95
++   (do not change this comment) */
+diff -purN emacs-23.4-orig/src/s/bsdos2-1.h emacs-23.4/src/s/bsdos2-1.h
+--- emacs-23.4-orig/src/s/bsdos2-1.h	1969-12-31 16:00:00.000000000 -0800
++++ emacs-23.4/src/s/bsdos2-1.h	2018-03-04 10:16:22.000000000 -0800
+@@ -0,0 +1,9 @@
++/* s/ file for BSDI BSD/OS 2.1 system.  */
++
++#include "bsdos2.h"
++
++#undef LIB_X11_LIB
++#define LIB_X11_LIB -L/usr/X11/lib -lX11 -lipc
++
++/* arch-tag: cf1ada4a-cdbf-452b-a264-ff84dd523e97
++   (do not change this comment) */
+diff -purN emacs-23.4-orig/src/s/bsdos2.h emacs-23.4/src/s/bsdos2.h
+--- emacs-23.4-orig/src/s/bsdos2.h	1969-12-31 16:00:00.000000000 -0800
++++ emacs-23.4/src/s/bsdos2.h	2018-03-04 10:16:22.000000000 -0800
+@@ -0,0 +1,14 @@
++/* s/ file for BSDI BSD/OS 2.0 system.  */
++
++#include "bsd386.h"
++
++#define	TEXT_START	0x1020	/* for QMAGIC */
++#define	START_FILES	pre-crt0.o /usr/lib/crt0.o
++#define	HAVE_TERMIOS
++#define	NO_TERMIO
++
++#undef	KERNEL_FILE
++#define	KERNEL_FILE	"/bsd"
++
++/* arch-tag: 25ce1827-1511-4305-9058-24dd2118b5b4
++   (do not change this comment) */
+diff -purN emacs-23.4-orig/src/s/bsdos3.h emacs-23.4/src/s/bsdos3.h
+--- emacs-23.4-orig/src/s/bsdos3.h	1969-12-31 16:00:00.000000000 -0800
++++ emacs-23.4/src/s/bsdos3.h	2018-03-04 10:16:22.000000000 -0800
+@@ -0,0 +1,9 @@
++/* s/ file for BSDI BSD/OS 3.0 system.  */
++
++#include "bsdos2.h"
++
++#undef	LIBS_SYSTEM
++#define LIBS_SYSTEM -lkvm
++
++/* arch-tag: 726766f3-5a62-48bf-8e21-3b21ec6abe6f
++   (do not change this comment) */
+diff -purN emacs-23.4-orig/src/s/bsdos4.h emacs-23.4/src/s/bsdos4.h
+--- emacs-23.4-orig/src/s/bsdos4.h	1969-12-31 16:00:00.000000000 -0800
++++ emacs-23.4/src/s/bsdos4.h	2018-03-04 10:16:22.000000000 -0800
+@@ -0,0 +1,26 @@
++/* s/ file for BSDI BSD/OS 4.0 system.  */
++
++#include "bsdos3.h"
++
++/* BSD/OS 4.1 and later have ncurses */
++#ifdef	HAVE_LIBNCURSES
++#define	TERMINFO
++#define	LIBS_TERMCAP -lncurses
++#endif	/* HAVE_LIBNCURSES */
++
++/* copied from freebsd.h */
++#ifdef __ELF__
++
++#define LD_SWITCH_SYSTEM
++#undef START_FILES
++#define START_FILES \
++	pre-crt0.o /usr/lib/crt1.o /usr/lib/crti.o /usr/lib/crtbegin.o
++#define UNEXEC unexelf.o
++#define LIB_STANDARD -lgcc -lc -lgcc /usr/lib/crtend.o /usr/lib/crtn.o
++#undef LIB_GCC
++#define LIB_GCC
++
++#endif /* not __ELF__ */
++
++/* arch-tag: 7659632a-a879-4153-bb8b-3765a1463ca1
++   (do not change this comment) */
+diff -purN emacs-23.4-orig/src/s/osf1.h emacs-23.4/src/s/osf1.h
+--- emacs-23.4-orig/src/s/osf1.h	1969-12-31 16:00:00.000000000 -0800
++++ emacs-23.4/src/s/osf1.h	2018-03-04 10:11:29.000000000 -0800
+@@ -0,0 +1,99 @@
++/* Definitions file for GNU Emacs running on osf1.
++   Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006,
++                 2007, 2008  Free Software Foundation, Inc.
++
++This file is part of GNU Emacs.
++
++GNU Emacs is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 3, or (at your option)
++any later version.
++
++GNU Emacs is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License
++along with GNU Emacs; see the file COPYING.  If not, write to
++the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
++Boston, MA 02110-1301, USA.  */
++
++
++#include "bsd4-3.h"
++
++/* Identify OSF1 for the m- files. */
++
++#define OSF1
++
++#define C_SWITCH_SYSTEM	-D_BSD
++/*#define LIBS_SYSTEM	-lbsd*/
++
++#define GETPGRP_NO_ARG
++
++#define SYSV_SYSTEM_DIR
++
++/* If your system uses COFF (Common Object File Format) then define the
++   preprocessor symbol "COFF". */
++
++#define COFF
++
++/* Here is how to find X Windows.  LD_SWITCH_X_SITE_AUX gives an -R option
++   says where to find X windows at run time.  We convert it to a -rpath option
++   which is what OSF1 uses.  */
++#define LD_SWITCH_SYSTEM `echo LD_SWITCH_X_SITE_AUX | sed -e 's/-R/-Wl,-rpath,/'`
++
++#define HAVE_TERMIOS
++
++#ifndef __GNUC__
++/* Optimize, inaccurate debugging.  */
++#define C_DEBUG_SWITCH -g3
++#endif
++
++#ifndef NOT_C_CODE
++#ifndef OSF5			/* fixed in 5.0 */
++/* Hack alert!  For reasons unknown to mankind the string.h file insists
++   on defining bcopy etc. as taking char pointers as arguments.  With
++   Emacs this produces an endless amount of warning which are harmless,
++   but tends to flood the real errors.  This hack works around this problem
++   by not prototyping.  */
++#define bcopy string_h_bcopy
++#define bzero string_h_bzero
++#define bcmp  string_h_bcmp
++#include <string.h>
++#undef bcopy
++#undef bzero
++#undef bcmp
++#endif
++#endif
++
++#define ORDINARY_LINK
++
++/* Some systems seem to have this, others don't.  */
++#ifdef HAVE_LIBDNET
++#define LIBS_MACHINE -ldnet
++#else
++#define LIBS_MACHINE -ldnet_stub
++#endif
++
++#define LIBS_DEBUG
++#define START_FILES pre-crt0.o
++
++#define PTY_ITERATION		for (i = 0; i < 1; i++) /* ick */
++#define PTY_NAME_SPRINTF	/* none */
++#define PTY_TTY_NAME_SPRINTF	/* none */
++#define PTY_OPEN					\
++  do							\
++    {							\
++      int dummy;					\
++      SIGMASKTYPE mask;					\
++      mask = sigblock (sigmask (SIGCHLD));		\
++      if (-1 == openpty (&fd, &dummy, pty_name, 0, 0))	\
++	fd = -1;					\
++      sigsetmask (mask);				\
++      emacs_close (dummy);				\
++    }							\
++  while (0)
++
++/* arch-tag: 65eaea67-fcc3-4de7-8574-d46beb82d4ed
++   (do not change this comment) */
+diff -purN emacs-23.4-orig/src/s/osf5-0.h emacs-23.4/src/s/osf5-0.h
+--- emacs-23.4-orig/src/s/osf5-0.h	1969-12-31 16:00:00.000000000 -0800
++++ emacs-23.4/src/s/osf5-0.h	2018-03-04 10:11:08.000000000 -0800
+@@ -0,0 +1,25 @@
++#define OSF5
++#include "osf1.h"
++
++/* It's enough to define _OSF_SOURCE instead of _BSD.  */
++
++#undef C_SWITCH_SYSTEM
++#define C_SWITCH_SYSTEM	-D_OSF_SOURCE
++
++#ifndef NSIG			/* _OSF_SOURCE seems to get us this */
++#define NSIG __sys_nsig
++#endif
++
++/* We have missing/inconsistent prototypes on 5.0, at least.  */
++#define INHIBIT_X11R6_XIM
++
++#define USE_MMAP_FOR_BUFFERS	1
++
++#define TERMINFO
++#define LIBS_TERMCAP -lcurses
++
++#define GC_SETJMP_WORKS 1
++#define GC_MARK_STACK GC_MAKE_GCPROS_NOOPS
++
++/* arch-tag: 89580064-dd8c-4533-a47c-0f92d8090945
++   (do not change this comment) */
+diff -purN emacs-23.4-orig/src/term.c emacs-23.4/src/term.c
+--- emacs-23.4-orig/src/term.c	2012-01-11 04:35:01.000000000 -0800
++++ emacs-23.4/src/term.c	2018-03-04 10:48:44.000000000 -0800
+@@ -3315,6 +3315,7 @@ dissociate_if_controlling_tty (int fd)
+       setsid ();
+       no_controlling_tty = 1;
+ #else
++#include <sys/ioctl.h>
+ #ifdef TIOCNOTTY                /* Try BSD ioctls. */
+       sigblock (sigmask (SIGTTOU));
+       fd = emacs_open (DEV_TTY, O_RDWR, 0);
