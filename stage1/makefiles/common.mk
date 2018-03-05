@@ -28,14 +28,18 @@ PKGSRC		= $(filter $(NAME)-$(VERSION)%,$(foreach url,$(URLS),$(lastword $(subst 
 PKGBUILDDIR	= $(BUILD_DIR)/$(NAME)-$(VERSION)
 PKGSUFFIX	= $(lastword $(subst ., ,$(PKGSRC)))
 
+CONFIG_SHELL	?= /bin/sh
+
 ifneq ($(OBJDIR),)
 MKOBJDIR	= mkdir -p $(OBJDIR)
 CDOBJDIR	= cd $(OBJDIR)
 CLEANOBJDIR	= rm -rf $(OBJDIR)
+CONFIGURE	?= ../configure
 else
 MKOBJDIR	= /bin/true
 CDOBJDIR	= /bin/true
 CLEANOBJDIR	= /bin/true
+CONFIGURE	?= ./configure
 endif
 
 export CFLAGS CPPFLAGS CXXFLAGS LDFLAGS PATH LD_LIBRARY_PATH

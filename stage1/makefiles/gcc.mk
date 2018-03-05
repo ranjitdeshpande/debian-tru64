@@ -25,6 +25,8 @@ OBJDIR		:= __obj
 
 CPPFLAGS	= -I$(TARGET_DIR)/usr/include
 LDFLAGS		= -L$(TARGET_DIR)/usr/lib
+CC		= cc
+export CC
 
 # GNU ar and ranlib need huge amounts of memory for libbackend.a. 
 # Therefore the Tru64's versions are used when building gcc.

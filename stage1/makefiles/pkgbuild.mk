@@ -63,7 +63,7 @@ endif
 $(PKGBUILDDIR)/.configured: $(PKGBUILDDIR)/.patched
 	@echo "Configuring $(NAME)-$(VERSION)"
 	@(cd $(PKGBUILDDIR); $(MKOBJDIR); $(CDOBJDIR); \
-		../configure --prefix=$(TARGET_DIR)/usr \
+		$(CONFIG_SHELL) $(CONFIGURE) --prefix=$(TARGET_DIR)/usr \
 			$(CONFIG_FLAGS))
 	@touch $@
 

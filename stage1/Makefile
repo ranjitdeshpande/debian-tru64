@@ -15,7 +15,7 @@
 #
 
 PKGS = patch sed gawk zlib gzip bzip2 xz tar gmp mpfr mpc \
-       binutils gcc emacs iconv gettext
+       binutils gcc emacs libiconv gettext
 
 all clean clobber:
 	@for pkg in $(PKGS); do \

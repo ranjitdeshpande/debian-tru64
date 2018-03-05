@@ -48,7 +48,8 @@ exit 1
 __EOF
 
 chmod +x ${TARGETDIR}/usr/bin/makeinfo
-PATH=$PATH:${TARGETDIR}/usr/bin
+OLDPATH=${PATH}
+PATH=${PATH}:${TARGETDIR}/usr/bin
 export PATH
 
 # Extract GNU make
@@ -75,5 +76,10 @@ echo "Building Debian-Tru64 Stage1..."
 echo
 echo
 
-make
+cd ../../..
+
+PATH=${TARGETDIR}/usr/bin:${OLDPATH}
+export PATH
+
+exec make
 
