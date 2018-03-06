@@ -38,4 +38,5 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	http://mirrors.kernel.org/gnu/emacs/emacs-23.4.tar.bz2 \
 	http://www.cpan.org/src/5.0/perl-5.26.1.tar.gz \
 	http://mirrors.kernel.org/gnu/texinfo/texinfo-6.5.tar.xz \
-	http://mirrors.kernel.org/gnu/m4/m4-1.4.18.tar.xz
+	http://mirrors.kernel.org/gnu/m4/m4-1.4.18.tar.xz \
+	ftp://ftp.info-zip.org/pub/infozip/src/unzip60.tgz

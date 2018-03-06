@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-PKGS = patch sed gawk zlib gzip bzip2 xz tar gmp mpfr mpc \
+PKGS = patch sed gawk zlib gzip bzip2 xz unzip tar gmp mpfr mpc \
        binutils gcc emacs libiconv gettext perl texinfo
 
 all clean clobber:
