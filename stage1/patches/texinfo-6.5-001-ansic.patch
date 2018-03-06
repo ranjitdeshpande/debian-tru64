@@ -1,0 +1,30 @@
+diff -purN texinfo-6.5/tp/Texinfo/MiscXS/misc.c texinfo-6.5-patched/tp/Texinfo/MiscXS/misc.c
+--- texinfo-6.5/tp/Texinfo/MiscXS/misc.c	2017-05-02 10:05:43.000000000 -0700
++++ texinfo-6.5-patched/tp/Texinfo/MiscXS/misc.c	2018-03-06 07:15:15.640494900 -0800
+@@ -103,7 +103,7 @@ xs_abort_empty_line (HV *self, HV *curre
+       return 0;
+     }
+   
+-  //fprintf (stderr, "ABORT EMPTY\n");
++  /*fprintf (stderr, "ABORT EMPTY\n");*/
+ 
+   svp = hv_fetch (last_elt, "text", strlen ("text"), 0);
+   if (!svp)
+@@ -389,7 +389,7 @@ xs_merge_text (HV *self, HV *current, SV
+ 
+ MERGED_TEXT:
+   sv_catpv (existing_text_sv, text);
+-  //fprintf (stderr, "MERGED TEXT: %s|||\n", text);
++  /*fprintf (stderr, "MERGED TEXT: %s|||\n", text);*/
+ 
+   if (0)
+     {
+@@ -403,7 +403,7 @@ NEW_TEXT:
+       hv_store (hv, "parent", strlen ("parent"),
+                 newRV_inc ((SV *)current), 0);
+       av_push (contents_array, newRV_inc ((SV *)hv));
+-      //fprintf (stderr, "NEW TEXT: %s|||\n", text);
++      /*fprintf (stderr, "NEW TEXT: %s|||\n", text);*/
+     }
+ 
+   return current;

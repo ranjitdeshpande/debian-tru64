@@ -14,13 +14,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-PKGS = patch sed gawk zlib gzip bzip2 xz tar gmp mpfr mpc \
-       binutils gcc emacs libiconv gettext perl texinfo
+NAME		:= texinfo
+VERSION		:= 6.5
+OBJDIR		:= __obj
+CONFIG_FLAGS	= --enable-threads=posix
 
-all clean clobber:
-	@for pkg in $(PKGS); do \
-		make -f makefiles/$$pkg.mk $@; \
-		if [ $$? != "0" ]; then \
-			exit 1; \
-		fi; \
-	done
+LIBS		= -lpthread
+PERL		= $(TARGET_DIR)/usr/bin/perl
+export PERL LIBS
+
+include makefiles/pkgbuild.mk

@@ -21,7 +21,9 @@ CONFIG_FLAGS	= --disable-java --enable-threads=posix \
 		  --with-included-glib --without-emacs--with-included-libcroco \
 		  --with-included-gettext --with-included-libxml \
 		  --with-libiconv-prefix=$(TARGET_DIR)/usr
-
 OBJDIR		:= __obj
+
+LIBS		= -lpthread
+export LIBS
 
 include makefiles/pkgbuild.mk

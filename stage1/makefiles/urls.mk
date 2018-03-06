@@ -36,4 +36,6 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	ftp://xmlsoft.org/libxml2/libxslt-1.1.32.tar.gz \
 	http://mirrors.kernel.org/gnu/gawk/gawk-3.1.8.tar.gz \
 	http://mirrors.kernel.org/gnu/emacs/emacs-23.4.tar.bz2 \
-	http://www.cpan.org/src/5.0/perl-5.26.1.tar.gz
+	http://www.cpan.org/src/5.0/perl-5.26.1.tar.gz \
+	http://mirrors.kernel.org/gnu/texinfo/texinfo-6.5.tar.xz \
+	http://mirrors.kernel.org/gnu/m4/m4-1.4.18.tar.xz
