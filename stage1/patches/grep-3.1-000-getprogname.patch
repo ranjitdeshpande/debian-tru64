@@ -1,0 +1,21 @@
+diff -purN grep-3.1/lib/getprogname.c grep-3.1-new/lib/getprogname.c
+--- grep-3.1/lib/getprogname.c	2018-02-23 15:48:57 -0800
++++ grep-3.1-new/lib/getprogname.c	2017-01-16 21:36:00 -0800
+@@ -43,7 +43,7 @@
+ # include <string.h>
+ #endif
+ 
+-#ifdef __sgi
++#if defined (__sgi) || defined (__osf__)
+ # include <string.h>
+ # include <unistd.h>
+ # include <stdio.h>
+@@ -151,7 +151,7 @@ getprogname (void)
+       free (buf.ps_pathptr);
+     }
+   return p;
+-# elif defined __sgi                                        /* IRIX */
++# elif defined (__sgi) || defined (__osf__) /* IRIX | Tru64 */
+   char filename[50];
+   int fd;
+ 

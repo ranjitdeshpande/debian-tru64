@@ -18,9 +18,9 @@ NAME		:= texinfo
 VERSION		:= 6.5
 OBJDIR		:= __obj
 CONFIG_FLAGS	= --enable-threads=posix
-
+CC		= gcc
 LIBS		= -lpthread
 PERL		= $(TARGET_DIR)/usr/bin/perl
-export PERL LIBS
+export PERL
 
 include makefiles/pkgbuild.mk

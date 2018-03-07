@@ -15,11 +15,17 @@
 #
 
 PKGS = patch sed gawk zlib gzip bzip2 xz unzip tar gmp mpfr mpc \
-       binutils gcc emacs libiconv gettext perl texinfo
+       binutils gcc emacs libiconv gettext perl texinfo Locale-gettext \
+       help2man grep flex
 
 all clean clobber:
 	@for pkg in $(PKGS); do \
-		make -f makefiles/$$pkg.mk $@; \
+		echo "*****************************************************"; \
+		echo "*"; \
+		echo "* $$pkg"; \
+		echo "*"; \
+		echo "*****************************************************"; \
+		make -s -f makefiles/$$pkg.mk $@; \
 		if [ $$? != "0" ]; then \
 			exit 1; \
 		fi; \

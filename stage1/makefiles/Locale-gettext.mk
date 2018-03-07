@@ -15,15 +15,16 @@
 #
 
 NAME		:= gettext
-VERSION		:= 0.19.8
-CONFIG_FLAGS	= --disable-java --enable-threads=posix \
-		  --disable-openmp --disable-curses --without-git \
-		  --with-included-glib --without-emacs--with-included-libcroco \
-		  --with-included-gettext --with-included-libxml \
-		  --with-libiconv-prefix=$(TARGET_DIR)/usr
-OBJDIR		:= __obj
+PERLMODNAME	:= Locale-gettext
+VERSION		:= 1.07
+CONFIG_FLAGS	:=
+
 CC		= gcc
+INC		= -I$(TARGET_DIR)/usr/include
+OTHERLDFLAGS	= -L$(TARGET_DIR)/usr/lib
+PERL		= $(TARGET_DIR)/usr/bin/perl
+MAKEVARS	= OTHERLDFLAGS=$(OTHERLDFLAGS)
 
-LIBS		= -lpthread
+export PERL INC OTHERLDFLAGS
 
-include makefiles/pkgbuild.mk
+include makefiles/perlmodbuild.mk

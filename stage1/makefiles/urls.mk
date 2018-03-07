@@ -39,4 +39,8 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	http://www.cpan.org/src/5.0/perl-5.26.1.tar.gz \
 	http://mirrors.kernel.org/gnu/texinfo/texinfo-6.5.tar.xz \
 	http://mirrors.kernel.org/gnu/m4/m4-1.4.18.tar.xz \
-	ftp://ftp.info-zip.org/pub/infozip/src/unzip60.tgz
+	ftp://ftp.info-zip.org/pub/infozip/src/unzip60.tgz \
+	https://github.com/westes/flex/releases/download/v2.6.4/flex-2.6.4.tar.gz \
+	http://mirrors.kernel.org/gnu/help2man/help2man-1.47.6.tar.xz \
+	http://search.cpan.org/CPAN/authors/id/P/PV/PVANDRY/gettext-1.07.tar.gz \
+	http://mirrors.kernel.org/gnu/grep/grep-3.1.tar.xz
