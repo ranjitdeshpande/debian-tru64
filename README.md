@@ -22,3 +22,9 @@ Dpkg is used as the package manager for the packages built by this project.
 GCC 4.7.4 compiled with the native Tru64 C compiler. Baseline is set to start
 compiling packages with the newly built GCC. Perl will be the first test case.
 
+### March 8th 2018
+
+Perl 5.26.1 built. Now starting the long journey to building the base required
+to start compiling Debian packages. Dpkg and debhelper will the first packages
+to be built.
+
