@@ -18,5 +18,6 @@ NAME		:= gzip
 VERSION		:= 1.9
 CONFIG_FLAGS	:=
 OBJDIR		:= __obj
+CC		= cc
 
 include makefiles/pkgbuild.mk

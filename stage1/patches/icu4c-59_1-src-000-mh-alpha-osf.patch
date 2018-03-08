@@ -1,0 +1,25 @@
+diff -purN icu/source/config/mh-alpha-osf icu-patched/source/config/mh-alpha-osf
+--- icu/source/config/mh-alpha-osf	2016-06-15 11:58:17.000000000 -0700
++++ icu-patched/source/config/mh-alpha-osf	2018-03-07 10:02:14.242729822 -0800
+@@ -19,8 +19,8 @@ THREADSCPPFLAGS = -D_REENTRANT -pthread
+ LIBCPPFLAGS =
+ 
+ # The tests need complete IEEE floating point support
+-CFLAGS += -ieee
+-CXXFLAGS += -ieee
++CFLAGS += -mieee
++CXXFLAGS += -mieee
+ 
+ ## Commands to compile
+ COMPILE.c=	$(CC) $(DEFS) $(CPPFLAGS) $(CFLAGS) -c
+@@ -28,8 +28,8 @@ COMPILE.cc=	$(CXX) $(DEFS) $(CPPFLAGS) $
+ 
+ 
+ ## Commands to link
+-LINK.c=		$(CC) -call_shared $(CFLAGS) $(LDFLAGS) 
+-LINK.cc=	$(CXX) -call_shared $(CXXFLAGS) $(LDFLAGS) 
++LINK.c=		$(CC) -Wl,-call_shared $(CFLAGS) $(LDFLAGS) 
++LINK.cc=	$(CXX) -Wl,-call_shared $(CXXFLAGS) $(LDFLAGS) 
+ 
+ ## Compiler switch to embed a runtime search path
+ LD_RPATH=	$(LD_RPATH)$(LD_RPATH_PRE)path1	

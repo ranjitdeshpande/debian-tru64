@@ -18,6 +18,7 @@ NAME		:= gawk
 VERSION		:= 3.1.8
 CONFIG_FLAGS	:=
 OBJDIR		:= __obj
+CC		= cc
 
 CPPFLAGS	= -D_OSF_SOURCE -D_XOPEN_SOURCE=500
 

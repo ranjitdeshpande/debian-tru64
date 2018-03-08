@@ -18,5 +18,6 @@ NAME		:= tar
 VERSION		:= 1.30
 CONFIG_FLAGS	:= --without-xattrs --without-posix-acls
 OBJDIR		:= __obj
+CC		= cc
 
 include makefiles/pkgbuild.mk

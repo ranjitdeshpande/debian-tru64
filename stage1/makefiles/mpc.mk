@@ -18,6 +18,7 @@ NAME		:= mpc
 VERSION		:= 1.0.3
 CONFIG_FLAGS	:= --enable-shared 
 OBJDIR		:= __obj
+CC		= cc
 
 CPPFLAGS	= -I$(TARGET_DIR)/usr/include
 LDFLAGS		= -L$(TARGET_DIR)/usr/lib

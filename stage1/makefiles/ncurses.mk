@@ -14,9 +14,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-NAME		:= perl
-VERSION		:= 5.26.1
-CONFIGURE	= ./configure.gnu
+NAME		:= ncurses
+VERSION		:= 6.1
+CONFIG_FLAGS	:= --with-shared --without-debug --without-profile \
+		   --with-cxx-shared --with-pthread --disable-lib-suffixes
+OBJDIR		:= __obj
 CC		= gcc
+CONFIG_SHELL	= /bin/ksh
+SHELL		= /bin/ksh
+
+CPPFLAGS	= -pthread -D_XOPEN_SOURCE=500
+LIBS		= -lpthread
 
 include makefiles/pkgbuild.mk

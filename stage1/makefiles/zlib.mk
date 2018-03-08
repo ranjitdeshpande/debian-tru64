@@ -18,6 +18,7 @@ NAME		:= zlib
 VERSION		:= 1.2.11
 CONFIG_FLAGS	:=
 OBJDIR		:= __obj
+CC		= cc
 
 CFLAGS		:= -O2
 

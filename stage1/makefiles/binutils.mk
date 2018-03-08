@@ -20,6 +20,7 @@ CONFIG_FLAGS	= --enable-shared --with-gmp=$(TARGET_DIR)/usr \
 		   --with-mpfr=$(TARGET_DIR)/usr --with-mpc=$(TARGET_DIR)/usr \
 		   --with-system-zlib --disable-werror
 OBJDIR		:= __obj
+CC		= cc
 
 CPPFLAGS	= -I$(TARGET_DIR)/usr/include
 LDFLAGS		= -L$(TARGET_DIR)/usr/lib

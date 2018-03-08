@@ -18,5 +18,6 @@ NAME		:= gmp
 VERSION		:= 6.1.2
 CONFIG_FLAGS	:= --enable-shared #--enable-cxx
 OBJDIR		:= __obj
+CC		= cc
 
 include makefiles/pkgbuild.mk

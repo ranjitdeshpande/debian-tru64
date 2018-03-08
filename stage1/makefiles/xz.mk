@@ -18,6 +18,7 @@ NAME		:= xz
 VERSION		:= 5.2.3
 CONFIG_FLAGS	:=
 OBJDIR		:= __obj
+CC		= cc
 
 CPPFLAGS	= -I$(PKGBUILDDIR) -pthread
 LIBS		= -lpthread

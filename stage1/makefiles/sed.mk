@@ -18,5 +18,6 @@ NAME		:= sed
 VERSION		:= 4.2
 CONFIG_FLAGS	:=
 OBJDIR		:= __obj
+CC		= cc
 
 include makefiles/pkgbuild.mk

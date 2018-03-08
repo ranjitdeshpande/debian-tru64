@@ -17,11 +17,10 @@
 NAME		:= unzip
 VERSION		:= 60
 CONFIG_FLAGS	:= cc -I. .
+CC		= cc
 
 CONFIGURE	= ./unix/configure
 MAKEVARS	= prefix=$(TARGET_DIR)/usr
-
-export CC
 
 include makefiles/common.mk
 

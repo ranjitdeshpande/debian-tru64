@@ -14,9 +14,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-NAME		:= perl
-VERSION		:= 5.26.1
-CONFIGURE	= ./configure.gnu
+NAME		:= icu4c
+VERSION		:= 59_1-src
+CONFIG_FLAGS	:=
+OBJDIR		= source
 CC		= gcc
+CPPFLAGS	= -I$(TARGET_DIR)/usr/include
+LDFLAGS		= -L$(TARGET_DIR)/usr/lib
+CONFIGURE	= ./configure
 
 include makefiles/pkgbuild.mk

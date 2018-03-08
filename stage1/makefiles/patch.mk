@@ -19,5 +19,6 @@ VERSION		:= 2.7.6
 CONFIG_FLAGS	:= 
 OBJDIR		:= __obj
 PKGCUSTOM_PATCH = perl -p -i -e 's/__sgi/__osf__/g' $(PKGBUILDDIR)/lib/getprogname.c
+CC		= cc
 
 include makefiles/pkgbuild.mk
