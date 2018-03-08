@@ -48,4 +48,5 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	http://download.icu-project.org/files/icu4c/59.1/icu4c-59_1-src.tgz \
 	http://mirrors.kernel.org/gnu/readline/readline-7.0.tar.gz \
 	http://mirrors.kernel.org/gnu/ncurses/ncurses-6.1.tar.gz \
-	ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.bz2
+	ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.bz2 \
+	https://www.openssl.org/source/openssl-1.0.2n.tar.gz
