@@ -30,23 +30,11 @@ $(DOWNLOAD_DIR)/$(PKGSRC):
 
 $(PKGBUILDDIR)/.extracted:
 	@echo "Extracting $(PKGSRC)"
-ifeq ($(PKGSUFFIX),gz)
-	@(cd $(BUILD_DIR); gunzip -c $(DOWNLOAD_DIR)/$(PKGSRC) | tar xf -)
-else
-  ifeq ($(PKGSUFFIX),tgz)
-	@(cd $(BUILD_DIR); gunzip -c $(DOWNLOAD_DIR)/$(PKGSRC) | tar xf -)
-  else
-    ifeq ($(PKGSUFFIX),bz2)
-	@(cd $(BUILD_DIR); bunzip2 -c $(DOWNLOAD_DIR)/$(PKGSRC) | tar xf -)
-    else
-      ifeq ($(PKGSUFFIX),xz)
-	@(cd $(BUILD_DIR); xzcat -c $(DOWNLOAD_DIR)/$(PKGSRC) | tar xf -)
-      else
+ifeq ($(UNZIPCMD),)
 	@echo "Cannot extract $(PKGSRC)"
 	@exit 1
-      endif
-    endif
-  endif
+else
+	@(cd $(BUILD_DIR); $(UNZIPCMD) $(DOWNLOAD_DIR)/$(PKGSRC) | tar xf -)
 endif
 	@touch $@
 
