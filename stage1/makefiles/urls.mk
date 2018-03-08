@@ -43,4 +43,9 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	https://github.com/westes/flex/releases/download/v2.6.4/flex-2.6.4.tar.gz \
 	http://mirrors.kernel.org/gnu/help2man/help2man-1.47.6.tar.xz \
 	http://search.cpan.org/CPAN/authors/id/P/PV/PVANDRY/gettext-1.07.tar.gz \
-	http://mirrors.kernel.org/gnu/grep/grep-3.1.tar.xz
+	http://mirrors.kernel.org/gnu/grep/grep-3.1.tar.xz \
+	ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre2-10.31.tar.bz2 \
+	http://download.icu-project.org/files/icu4c/59.1/icu4c-59_1-src.tgz \
+	http://mirrors.kernel.org/gnu/readline/readline-7.0.tar.gz \
+	http://mirrors.kernel.org/gnu/ncurses/ncurses-6.1.tar.gz \
+	ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.bz2

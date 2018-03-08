@@ -16,7 +16,7 @@
 
 PKGS = patch sed gawk zlib gzip bzip2 xz unzip tar gmp mpfr mpc \
        binutils gcc emacs libiconv gettext perl texinfo Locale-gettext \
-       help2man grep flex
+       help2man icu ncurses readline pcre pcre2 grep flex
 
 all clean clobber:
 	@for pkg in $(PKGS); do \
@@ -25,7 +25,7 @@ all clean clobber:
 		echo "* $$pkg"; \
 		echo "*"; \
 		echo "*****************************************************"; \
-		make -s -f makefiles/$$pkg.mk $@; \
+		make -f makefiles/$$pkg.mk $@; \
 		if [ $$? != "0" ]; then \
 			exit 1; \
 		fi; \
