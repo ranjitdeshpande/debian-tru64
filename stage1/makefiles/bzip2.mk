@@ -69,12 +69,14 @@ $(PKGBUILDDIR)/.built: $(PKGBUILDDIR)/.patched
 $(PKGBUILDDIR)/.installed: $(PKGBUILDDIR)/.built
 	@echo "Installing $(NAME)-$(VERSION)"
 	@(cd $(PKGBUILDDIR); cp bzip2-shared $(TARGET_DIR)/usr/bin/bzip2; \
-		ln -s $(TARGET_DIR)/usr/bin/bzip2 \
+		ln -sf $(TARGET_DIR)/usr/bin/bzip2 \
 			$(TARGET_DIR)/usr/bin/bunzip2; \
-		ln -s $(TARGET_DIR)/usr/bin/bzip2 \
+		ln -sf $(TARGET_DIR)/usr/bin/bzip2 \
 			$(TARGET_DIR)/usr/bin/bzcat; \
 		cp -f libbz2.so.1.0.6 $(TARGET_DIR)/usr/lib; \
-		ln -s libbz2.so.1.0.6 $(TARGET_DIR)/usr/lib/libbz2.so.1.0)
+		ln -sf libbz2.so.1.0.6 $(TARGET_DIR)/usr/lib/libbz2.so.1.0; \
+		ln -sf libbz2.so.1.0.6 $(TARGET_DIR)/usr/lib/libbz2.so; \
+		cp -f bzlib.h $(TARGET_DIR)/usr/include)
 	@touch $@
 
 clean:
