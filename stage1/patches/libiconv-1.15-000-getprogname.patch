@@ -16,7 +16,7 @@ diff -purN libiconv-1.15-orig/srclib/getprogname.c libiconv-1.15/srclib/getprogn
  #include "dirname.h"
  
  #ifndef HAVE_GETPROGNAME             /* not Mac OS X, FreeBSD, NetBSD, OpenBSD >= 5.4, Cygwin */
-@@ -143,6 +151,32 @@ getprogname (void)
+@@ -143,6 +151,36 @@ getprogname (void)
        free (buf.ps_pathptr);
      }
    return p;
@@ -24,7 +24,11 @@ diff -purN libiconv-1.15-orig/srclib/getprogname.c libiconv-1.15/srclib/getprogn
 +  char filename[50];
 +  int fd;
 +
++#if defined (__sgi)
 +  sprintf (filename, "/proc/pinfo/%d", (int) getpid ());
++#elif defined (__osf__)
++  sprintf (filename, "/proc/%d", (int) getpid ());
++#endif
 +  fd = open (filename, O_RDONLY);
 +  if (0 <= fd)
 +    {
