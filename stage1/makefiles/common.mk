@@ -20,15 +20,47 @@ DOWNLOAD_DIR	:= $(shell pwd)/../download
 BUILD_DIR	:= $(shell pwd)/build
 TARGET_DIR	:= $(shell pwd)/target
 PATCH_DIR	:= $(shell pwd)/patches
-PATH 		:= $(TARGET_DIR)/usr/bin:$(TARGET_DIR)/usr/sbin:$(TARGET_DIR)/bin:$(PATH)
+
 LD_LIBRARY_PATH := $(LD_LIBRARY_PATH):$(TARGET_DIR)/usr/lib
+PATH		:= $(TARGET_DIR)/usr/bin:$(PATH)
+
 PKGPATCHES	:= $(shell ls $(PATCH_DIR)/$(NAME)-$(VERSION)-*.patch 2> /dev/null)
 
 PKGSRC		= $(filter $(NAME)-$(VERSION)%,$(foreach url,$(URLS),$(lastword $(subst /, ,$(url)))))
-PKGBUILDDIR	= $(BUILD_DIR)/$(NAME)-$(VERSION)
 PKGSUFFIX	= $(lastword $(subst ., ,$(PKGSRC)))
 
-CONFIG_SHELL	?= /bin/sh
+# Shell command with LD_LIBRARY_PATH and PATH variables
+myshell		= $(shell LD_LIBRARY_PATH=$(LD_LIBRARY_PATH) \
+			PATH=$(TARGET_DIR)/usr/bin:$PATH $1)
+
+IS_TAR		= $(findstring .tar.,$(PKGSRC))
+ifeq ($(PKGSUFFIX),gz)
+UNZIPCMD	= gunzip -c
+endif
+ifeq ($(PKGSUFFIX),tgz)
+UNZIPCMD	= gunzip -c
+IS_TAR		= yes
+endif
+ifeq ($(PKGSUFFIX),bz2)
+UNZIPCMD	= bunzip2 -c
+endif
+ifeq ($(PKGSUFFIX),xz)
+UNZIPCMD	= xzdec -c
+endif
+ifeq ($(PKGSUFFIX),zip)
+UNZIPCMD	= unzip
+extract		= $(call myshell,$(UNZIPCMD) $(1))
+pkgdir		= $(call myshell,$(UNZIPCMD) -l $(1) | awk 'FNR == 4 {print $$4}')
+endif
+
+ifneq ($(IS_TAR),)
+extract		= $(call myshell,$(UNZIPCMD) $(1) | tar xf -)
+pkgdir		= $(call myshell,$(UNZIPCMD) $(1) | tar tf - | head -n 1)
+endif
+
+PKGBUILDDIR	= $(BUILD_DIR)/$(word 1,$(subst /, ,$(call pkgdir, $(DOWNLOAD_DIR)/$(PKGSRC))))
+
+CONFIG_SHELL	?= /bin/ksh
 
 ifneq ($(OBJDIR),)
 MKOBJDIR	= mkdir -p $(OBJDIR)
@@ -42,4 +74,5 @@ CLEANOBJDIR	= /bin/true
 CONFIGURE	?= ./configure
 endif
 
-export CC LIBS CFLAGS CPPFLAGS CXXFLAGS LDFLAGS PATH LD_LIBRARY_PATH
+export CC LIBS CFLAGS CPPFLAGS CXXFLAGS LDFLAGS PATH \
+       LD_LIBRARY_PATH CONFIG_SHELL
