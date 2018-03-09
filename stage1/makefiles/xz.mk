@@ -23,6 +23,4 @@ CC		= cc
 CPPFLAGS	= -I$(PKGBUILDDIR) -pthread
 LIBS		= -lpthread
 
-export LIBS
-
 include makefiles/pkgbuild.mk
