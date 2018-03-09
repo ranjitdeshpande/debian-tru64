@@ -21,6 +21,5 @@ CONFIG_FLAGS	= --enable-threads=posix
 CC		= gcc
 LIBS		= -lpthread
 PERL		= $(TARGET_DIR)/usr/bin/perl
-export PERL
 
 include makefiles/pkgbuild.mk

@@ -26,6 +26,4 @@ PERL		= $(TARGET_DIR)/usr/bin/perl
 CPPFLAGS	= -I$(TARGET_DIR)/usr/include
 LDFLAGS		= -L$(TARGET_DIR)/usr/lib
 
-export PERL
-
 include makefiles/pkgbuild.mk

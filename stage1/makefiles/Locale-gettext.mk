@@ -25,6 +25,6 @@ OTHERLDFLAGS	= -L$(TARGET_DIR)/usr/lib
 PERL		= $(TARGET_DIR)/usr/bin/perl
 MAKEVARS	= OTHERLDFLAGS=$(OTHERLDFLAGS)
 
-export PERL INC OTHERLDFLAGS
+export INC OTHERLDFLAGS
 
 include makefiles/perlmodbuild.mk
