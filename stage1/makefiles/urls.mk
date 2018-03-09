@@ -49,4 +49,9 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	http://mirrors.kernel.org/gnu/readline/readline-7.0.tar.gz \
 	http://mirrors.kernel.org/gnu/ncurses/ncurses-6.1.tar.gz \
 	ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.bz2 \
-	https://www.openssl.org/source/openssl-1.0.2n.tar.gz
+	https://www.openssl.org/source/openssl-1.0.2n.tar.gz \
+	https://curl.haxx.se/download/curl-7.58.0.tar.xz \
+	https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz \
+	http://http.debian.net/debian/pool/main/d/dpkg/dpkg_1.19.0.5.tar.xz \
+	https://www.libarchive.org/downloads/libarchive-3.3.2.tar.gz \
+	https://github.com/libexpat/libexpat/releases/download/R_2_2_5/expat-2.2.5.tar.bz2
