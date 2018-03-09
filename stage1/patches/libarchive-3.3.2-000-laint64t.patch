@@ -1,0 +1,12 @@
+diff -purN libarchive-3.3.2/libarchive/archive.h libarchive-3.3.2-patched/libarchive/archive.h
+--- libarchive-3.3.2/libarchive/archive.h	2017-07-09 19:32:11.000000000 -0700
++++ libarchive-3.3.2-patched/libarchive/archive.h	2018-03-09 07:07:02.452098353 -0800
+@@ -68,7 +68,7 @@ typedef __int64 la_int64_t;
+ # else
+ # include <unistd.h>  /* ssize_t */
+ #  if defined(_SCO_DS) || defined(__osf__)
+-typedef long long la_int64_t;
++typedef long int la_int64_t;
+ #  else
+ typedef int64_t la_int64_t;
+ #  endif

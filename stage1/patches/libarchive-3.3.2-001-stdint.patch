@@ -1,0 +1,33 @@
+diff -purN libarchive-3.3.2/cat/cmdline.c libarchive-3.3.2-patched/cat/cmdline.c
+--- libarchive-3.3.2/cat/cmdline.c	2015-09-04 21:24:18.000000000 -0700
++++ libarchive-3.3.2-patched/cat/cmdline.c	2018-03-09 14:09:46.121879471 -0800
+@@ -39,6 +39,7 @@ __FBSDID("$FreeBSD$");
+ #ifdef HAVE_STRING_H
+ #include <string.h>
+ #endif
++#include <stdint.h>
+ 
+ #include "bsdcat.h"
+ #include "err.h"
+diff -purN libarchive-3.3.2/cpio/cmdline.c libarchive-3.3.2-patched/cpio/cmdline.c
+--- libarchive-3.3.2/cpio/cmdline.c	2018-03-09 14:08:48.678593203 -0800
++++ libarchive-3.3.2-patched/cpio/cmdline.c	2018-03-09 14:09:04.842392361 -0800
+@@ -44,6 +44,7 @@ __FBSDID("$FreeBSD: src/usr.bin/cpio/cmd
+ #ifdef HAVE_STRING_H
+ #include <string.h>
+ #endif
++#include <stdint.h>
+ 
+ #include "cpio.h"
+ #include "err.h"
+diff -purN libarchive-3.3.2/tar/cmdline.c libarchive-3.3.2-patched/tar/cmdline.c
+--- libarchive-3.3.2/tar/cmdline.c	2017-02-25 09:37:08.000000000 -0800
++++ libarchive-3.3.2-patched/tar/cmdline.c	2018-03-09 14:10:08.677599235 -0800
+@@ -39,6 +39,7 @@ __FBSDID("$FreeBSD$");
+ #ifdef HAVE_STRING_H
+ #include <string.h>
+ #endif
++#include <stdint.h>
+ 
+ #include "bsdtar.h"
+ #include "err.h"
