@@ -1,0 +1,14 @@
+diff -purN dpkg-1.19.0.5/utils/update-alternatives.c dpkg-1.19.0.5-patched/utils/update-alternatives.c
+--- dpkg-1.19.0.5/utils/update-alternatives.c	2017-11-02 15:28:26.000000000 -0700
++++ dpkg-1.19.0.5-patched/utils/update-alternatives.c	2018-03-12 13:19:51.000000000 -0700
+@@ -46,6 +46,10 @@
+ #include <dpkg/macros.h>
+ #include <dpkg/i18n.h>
+ 
++#ifdef __osf__
++#define isblank(c)	((c == ' ' || c == '\t') ? 1 : 0)
++#endif
++
+ /* Global variables: */
+ 
+ #define PROGNAME "update-alternatives"

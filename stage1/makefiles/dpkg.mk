@@ -14,20 +14,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-PKGS = patch sed gawk zlib gzip bzip2 xz unzip tar gmp mpfr mpc \
-       binutils gcc emacs libiconv gettext perl texinfo Locale-gettext \
-       help2man icu ncurses readline pcre pcre2 grep flex openssl curl \
-       libxml2 expat libarchive cmake dpkg
+NAME		:= dpkg
+VERSION		:= 1.19.0.5
+CONFIG_FLAGS	= --host=alpha-dec-osf1 --build=alpha-dec-osf1 \
+		  --sysconfdir=$(TARGET_DIR)/etc \
+		  --localstatedir=$(TARGET_DIR)/var \
+		  --with-libiconv-prefix=$(TARGET_DIR)/usr \
+		  --disable-start-stop-daemon --disable-dselect
+OBJDIR		:= __obj
+CC		= gcc
+PERL		= $(TARGET_DIR)/usr/bin/perl
+CPPFLAGS	= -I$(TARGET_DIR)/usr/include
+LDFLAGS		= -L$(TARGET_DIR)/usr/lib
+PATCH		= $(TARGET_DIR)/usr/bin/patch
+TAR		= $(TARGET_DIR)/usr/bin/tar
 
-all clean clobber:
-	@for pkg in $(PKGS); do \
-		echo "*****************************************************"; \
-		echo "*"; \
-		echo "* $$pkg"; \
-		echo "*"; \
-		echo "*****************************************************"; \
-		make -f makefiles/$$pkg.mk $@; \
-		if [ $$? != "0" ]; then \
-			exit 1; \
-		fi; \
-	done
+export PATCH TAR
+
+include makefiles/pkgbuild.mk

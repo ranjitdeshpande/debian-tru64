@@ -1,0 +1,16 @@
+diff -purN dpkg-1.19.0.5/data/ostable dpkg-1.19.0.5-patched/data/ostable
+--- dpkg-1.19.0.5/data/ostable	2017-11-02 15:28:26.000000000 -0700
++++ dpkg-1.19.0.5-patched/data/ostable	2018-03-12 12:33:26.000000000 -0700
+@@ -41,3 +41,4 @@ base-sysv-solaris	solaris			solaris[^-]*
+ eabi-uclibc-uclinux	uclinux-uclibceabi	uclinux[^-]*-uclibceabi
+ base-uclibc-uclinux	uclinux-uclibc		uclinux[^-]*(-uclibc.*)?
+ base-tos-mint		mint			mint[^-]*
++base-dec-osf1		dec-osf1		osf.*
+diff -purN dpkg-1.19.0.5/data/tupletable dpkg-1.19.0.5-patched/data/tupletable
+--- dpkg-1.19.0.5/data/tupletable	2017-11-02 15:28:26.000000000 -0700
++++ dpkg-1.19.0.5-patched/data/tupletable	2018-03-12 12:45:18.000000000 -0700
+@@ -38,3 +38,4 @@ base-sysv-solaris-<cpu>		solaris-<cpu>
+ eabi-uclibc-uclinux-arm		uclinux-armel
+ base-uclibc-uclinux-<cpu>	uclinux-<cpu>
+ base-tos-mint-m68k		mint-m68k
++base-dec-osf1-alpha		osf1-alpha

@@ -1,0 +1,53 @@
+diff -purN dpkg-1.19.0.5/dpkg-split/dpkg-split.h dpkg-1.19.0.5-patched/dpkg-split/dpkg-split.h
+--- dpkg-1.19.0.5/dpkg-split/dpkg-split.h	2017-11-02 16:17:48.000000000 -0700
++++ dpkg-1.19.0.5-patched/dpkg-split/dpkg-split.h	2018-03-12 13:15:49.000000000 -0700
+@@ -22,6 +22,7 @@
+ #ifndef DPKG_SPLIT_H
+ #define DPKG_SPLIT_H
+ 
++#include <stdint.h>
+ #include <dpkg/ar.h>
+ #include <dpkg/deb-version.h>
+ 
+@@ -81,4 +82,8 @@ void addtopartlist(struct partinfo**, st
+ 
+ #define SPLITPARTDEFMAX    (450 * 1024)
+ 
++#ifdef __osf__
++#define strtoimax(n, e, b) (intmax_t)(strtol(n, e, b))
++#endif
++
+ #endif /* DPKG_SPLIT_H */
+diff -purN dpkg-1.19.0.5/lib/compat/md5.c dpkg-1.19.0.5-patched/lib/compat/md5.c
+--- dpkg-1.19.0.5/lib/compat/md5.c	2017-10-16 19:12:08.000000000 -0700
++++ dpkg-1.19.0.5-patched/lib/compat/md5.c	2018-03-12 12:58:23.000000000 -0700
+@@ -21,6 +21,7 @@
+ #include <compat.h>
+ 
+ #include <sys/types.h>
++#include <inttypes.h>
+ #include <string.h>
+ 
+ #include "md5.h"
+diff -purN dpkg-1.19.0.5/lib/dpkg/buffer.c dpkg-1.19.0.5-patched/lib/dpkg/buffer.c
+--- dpkg-1.19.0.5/lib/dpkg/buffer.c	2017-11-02 15:28:26.000000000 -0700
++++ dpkg-1.19.0.5-patched/lib/dpkg/buffer.c	2018-03-12 13:00:44.000000000 -0700
+@@ -26,6 +26,7 @@
+ #include <sys/types.h>
+ 
+ #include <errno.h>
++#include <inttypes.h>
+ #include <md5.h>
+ #include <string.h>
+ #include <unistd.h>
+diff -purN dpkg-1.19.0.5/lib/dpkg/compress.c dpkg-1.19.0.5-patched/lib/dpkg/compress.c
+--- dpkg-1.19.0.5/lib/dpkg/compress.c	2017-11-02 15:28:26.000000000 -0700
++++ dpkg-1.19.0.5-patched/lib/dpkg/compress.c	2018-03-12 13:06:18.000000000 -0700
+@@ -28,6 +28,7 @@
+ #include <unistd.h>
+ #include <stdbool.h>
+ #include <stdlib.h>
++#include <stdint.h>
+ 
+ #ifdef WITH_LIBZ
+ #include <zlib.h>

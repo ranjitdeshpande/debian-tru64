@@ -1,0 +1,14 @@
+diff -purN dpkg-1.19.0.5/configure dpkg-1.19.0.5-patched/configure
+--- dpkg-1.19.0.5/configure	2018-01-16 18:27:34.000000000 -0800
++++ dpkg-1.19.0.5-patched/configure	2018-03-12 10:59:16.000000000 -0700
+@@ -16247,6 +16247,10 @@ else
+ #include <inttypes.h>
+ #include <stdbool.h>
+ #include <stdio.h>
++#include <stdint.h>
++#include <limits.h>
++
++#define SIZE_MAX SSIZE_MAX
+ 
+ /* Variadic macro arguments. */
+ #define variadic_macro(foo, ...) printf(foo, __VA_ARGS__)

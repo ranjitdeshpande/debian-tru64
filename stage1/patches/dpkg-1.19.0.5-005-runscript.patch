@@ -1,0 +1,26 @@
+diff -purN dpkg-1.19.0.5/run-script dpkg-1.19.0.5-patched/run-script
+--- dpkg-1.19.0.5/run-script	2017-11-02 15:28:26.000000000 -0700
++++ dpkg-1.19.0.5-patched/run-script	2018-03-12 11:25:37.000000000 -0700
+@@ -4,14 +4,19 @@ top_srcdir="`dirname "$0"`"
+ 
+ # To avoid using «readlink -f» or «realpath» we just change into the
+ # desired directory and work from there.
++OLDPWD=`pwd`
+ cd "$top_srcdir"
+ cwd="`pwd`"
+ cd "$OLDPWD"
+ 
+ # Set up the environment, to use local perl modules and data files.
+-export PERL="${PERL:-perl}"
+-export PERL5LIB="$cwd/scripts:$cwd/dselect/methods"
+-export DPKG_DATADIR="$cwd/data"
++PERL="${PERL:-perl}"
++PERL5LIB="$cwd/scripts:$cwd/dselect/methods"
++DPKG_DATADIR="$cwd/data"
++
++export PERL
++export PERL5LIB
++export DPKG_DATADIR
+ 
+ script="$1"
+ shift 1

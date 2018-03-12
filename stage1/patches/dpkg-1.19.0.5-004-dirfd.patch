@@ -1,0 +1,18 @@
+diff -purN dpkg-1.19.0.5/lib/dpkg/dir.c dpkg-1.19.0.5-patched/lib/dpkg/dir.c
+--- dpkg-1.19.0.5/lib/dpkg/dir.c	2017-11-02 15:28:26.000000000 -0700
++++ dpkg-1.19.0.5-patched/lib/dpkg/dir.c	2018-03-12 13:08:24.000000000 -0700
+@@ -34,6 +34,14 @@
+ #include <dpkg/i18n.h>
+ #include <dpkg/dir.h>
+ 
++#ifdef __osf__
++#ifdef _OSF_SOURCE
++#define dirfd(d) (d->dd_fd)
++#else
++#define dirfd(d) (dd->__dd_fd)
++#endif
++#endif
++
+ /**
+  * Sync a directory to disk from a DIR structure.
+  *

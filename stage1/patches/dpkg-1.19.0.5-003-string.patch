@@ -1,0 +1,14 @@
+diff -purN dpkg-1.19.0.5/lib/compat/getopt.c dpkg-1.19.0.5-patched/lib/compat/getopt.c
+--- dpkg-1.19.0.5/lib/compat/getopt.c	2017-11-02 15:28:26.000000000 -0700
++++ dpkg-1.19.0.5-patched/lib/compat/getopt.c	2018-03-12 12:59:46.000000000 -0700
+@@ -81,6 +81,10 @@ USA.  */
+ #endif
+ #endif
+ 
++#ifdef __osf__
++#include <string.h>
++#endif
++
+ #if defined (WIN32) && !defined (__CYGWIN32__)
+ /* It's not Unix, really.  See?  Capital letters.  */
+ #include <windows.h>
