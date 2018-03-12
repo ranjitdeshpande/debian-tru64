@@ -27,6 +27,12 @@ PATH		:= $(TARGET_DIR)/usr/bin:$(PATH)
 PKGPATCHES	:= $(shell ls $(PATCH_DIR)/$(NAME)-$(VERSION)-*.patch 2> /dev/null)
 
 PKGSRC		= $(filter $(NAME)-$(VERSION)%,$(foreach url,$(URLS),$(lastword $(subst /, ,$(url)))))
+
+# Some packages use an underscore to separate name and version
+ifeq ($(PKGSRC),)
+PKGSRC		= $(filter $(NAME)_$(VERSION)%,$(foreach url,$(URLS),$(lastword $(subst /, ,$(url)))))
+endif
+
 PKGSUFFIX	= $(lastword $(subst ., ,$(PKGSRC)))
 
 # Shell command with LD_LIBRARY_PATH and PATH variables
