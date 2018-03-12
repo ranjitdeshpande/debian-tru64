@@ -5,10 +5,18 @@ pactches.
 
 Project builds in two stages:
 
-Stage1: Creates a bootstrap environment using open source packages
-        from the Tru64 distribution.
+### Stage1
+Creates a bootstrap environment using open source packages built with the
+native Tru64 C compiler. Once GCC is built, the rest of the packages are
+built using GCC. This means that the bootstrap packages will be built using
+two different compilers. This doesn't matter because the native compiler is
+used to build only the base utlities to bootstrap GCC.
 
-Stage2: Compiles everything with the bootstrapped toolchain.
+On Tru64, the linker, assembler and other "binutils" are native, so there
+is no conflict with libraries built using the native compiler vs GCC.
+
+### Stage2
+Compiles everything with the bootstrapped toolchain.
 
 
 Dpkg is used as the package manager for the packages built by this project.
