@@ -28,3 +28,9 @@ Perl 5.26.1 built. Now starting the long journey to building the base required
 to start compiling Debian packages. Dpkg and debhelper will the first packages
 to be built.
 
+### March 12th 2018
+
+Built CMake. This is a really annoying package which is pure bloatware. It
+took forever to compile it on my PC164-based system. It is needed to build
+many other packages so it was better to go through this in the beginning.
+It has a lot of dependencies and they took their own time to build as well.

@@ -14,20 +14,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-PKGS = patch sed gawk zlib gzip bzip2 xz unzip tar gmp mpfr mpc \
-       binutils gcc emacs libiconv gettext perl texinfo Locale-gettext \
-       help2man icu ncurses readline pcre pcre2 grep flex openssl curl \
-       libxml2 expat libarchive cmake
+NAME		:= cmake
+VERSION		:= 3.7.2
+CONFIG_FLAGS	= --system-libs --mandir=/share/man --no-system-jsoncpp \
+		  --docdir=/share/doc/cmake-3.7.2 --no-server
+CC		= gcc
+CONFIGURE	= ./bootstrap
+CFLAGS		= -D_XOPEN_SOURCE=500 -I$(TARGET_DIR)/usr/include
+CXXFLAGS	= $(CFLAGS)
+LDFLAGS		= -L$(TARGET_DIR)/usr/lib
 
-all clean clobber:
-	@for pkg in $(PKGS); do \
-		echo "*****************************************************"; \
-		echo "*"; \
-		echo "* $$pkg"; \
-		echo "*"; \
-		echo "*****************************************************"; \
-		make -f makefiles/$$pkg.mk $@; \
-		if [ $$? != "0" ]; then \
-			exit 1; \
-		fi; \
-	done
+include makefiles/pkgbuild.mk

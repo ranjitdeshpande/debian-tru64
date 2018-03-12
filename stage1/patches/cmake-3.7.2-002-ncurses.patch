@@ -1,0 +1,12 @@
+diff -purN cmake-3.7.2/Source/CursesDialog/cmCursesStandardIncludes.h cmake-3.7.2-patched/Source/CursesDialog/cmCursesStandardIncludes.h
+--- cmake-3.7.2/Source/CursesDialog/cmCursesStandardIncludes.h	2017-01-13 06:05:41.000000000 -0800
++++ cmake-3.7.2-patched/Source/CursesDialog/cmCursesStandardIncludes.h	2018-03-11 18:49:31.807182746 -0700
+@@ -10,7 +10,7 @@
+ #include <sys/time.h>
+ #endif
+ 
+-#include <form.h>
++#include <ncurses/form.h>
+ 
+ // on some machines move erase and clear conflict with stl
+ // so remove them from the namespace

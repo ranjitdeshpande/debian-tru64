@@ -1,0 +1,15 @@
+diff -purN cmake-3.7.2/Utilities/cmjsoncpp/src/lib_json/json_writer.cpp cmake-3.7.2-patched/Utilities/cmjsoncpp/src/lib_json/json_writer.cpp
+--- cmake-3.7.2/Utilities/cmjsoncpp/src/lib_json/json_writer.cpp	2017-01-13 06:05:42.000000000 -0800
++++ cmake-3.7.2-patched/Utilities/cmjsoncpp/src/lib_json/json_writer.cpp	2018-03-09 18:47:23.725540310 -0800
+@@ -55,6 +55,11 @@
+ # endif
+ #endif
+ 
++// Tru64
++#if defined (__osf__) && defined (__GNUC__)
++#define isfinite(d) __builtin_isfinite(d)
++#endif
++
+ #if defined(_MSC_VER) && _MSC_VER >= 1400 // VC++ 8.0
+ // Disable warning about strdup being deprecated.
+ #pragma warning(disable : 4996)
