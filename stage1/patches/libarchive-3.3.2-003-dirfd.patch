@@ -1,0 +1,16 @@
+diff -purN libarchive-3.3.2/libarchive/archive_read_disk_posix.c libarchive-3.3.2-patched/libarchive/archive_read_disk_posix.c
+--- libarchive-3.3.2/libarchive/archive_read_disk_posix.c	2017-02-25 09:37:08.000000000 -0800
++++ libarchive-3.3.2-patched/libarchive/archive_read_disk_posix.c	2018-03-12 10:15:08.497673929 -0700
+@@ -2364,8 +2364,12 @@ tree_dir_next_posix(struct tree *t)
+ 		if (tree_enter_working_dir(t) == 0) {
+ 			t->d = opendir(".");
+ #if HAVE_DIRFD || defined(dirfd)
++#ifdef __osf__
++			__archive_ensure_cloexec_flag(dirfd(t->d->__dd_fd));
++#else
+ 			__archive_ensure_cloexec_flag(dirfd(t->d));
+ #endif
++#endif
+ 		}
+ #endif /* HAVE_FDOPENDIR */
+ 		if (t->d == NULL) {
