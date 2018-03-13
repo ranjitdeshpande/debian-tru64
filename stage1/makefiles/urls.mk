@@ -59,4 +59,7 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	http://mirrors.kernel.org/gnu/bison/bison-3.0.4.tar.xz \
 	http://mirrors.kernel.org/gnu/libsigsegv/libsigsegv-2.9.tar.gz \
 	http://mirrors.kernel.org/gnu/diffutils/diffutils-3.6.tar.xz \
-	http://mirrors.kernel.org/gnu/findutils/findutils-4.6.0.tar.gz
+	http://mirrors.kernel.org/gnu/findutils/findutils-4.6.0.tar.gz \
+	http://mirrors.kernel.org/gnu/bash/bash-4.4.18.tar.gz \
+	http://mirrors.kernel.org/gnu/autoconf/autoconf-2.69.tar.xz \
+	http://mirrors.kernel.org/gnu/automake/automake-1.16.tar.xz
