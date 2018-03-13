@@ -62,4 +62,5 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	http://mirrors.kernel.org/gnu/findutils/findutils-4.6.0.tar.gz \
 	http://mirrors.kernel.org/gnu/bash/bash-4.4.18.tar.gz \
 	http://mirrors.kernel.org/gnu/autoconf/autoconf-2.69.tar.xz \
-	http://mirrors.kernel.org/gnu/automake/automake-1.16.tar.xz
+	http://mirrors.kernel.org/gnu/automake/automake-1.16.tar.xz \
+	ftp://ftp.astron.com/pub/file/file-5.32.tar.gz
