@@ -17,7 +17,7 @@
 NAME		:= coreutils
 VERSION		:= 8.29
 CONFIG_FLAGS	= --enable-threads=posix --disable-xattr --disable-libcap \
-		  --with-openssl --without-selinux
+		  --with-openssl=no --without-selinux
 OBJDIR		:= __obj
 CC		= gcc
 PERL		= $(TARGET_DIR)/usr/bin/perl
