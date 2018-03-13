@@ -24,11 +24,12 @@ CONFIG_FLAGS	= --host=alpha-dec-osf1 --build=alpha-dec-osf1 \
 OBJDIR		:= __obj
 CC		= gcc
 PERL		= $(TARGET_DIR)/usr/bin/perl
+PERL_LIBDIR	= $(TARGET_DIR)/usr/lib/perl5/5.26.1
 CPPFLAGS	= -I$(TARGET_DIR)/usr/include
 LDFLAGS		= -L$(TARGET_DIR)/usr/lib
 PATCH		= $(TARGET_DIR)/usr/bin/patch
 TAR		= $(TARGET_DIR)/usr/bin/tar
 
-export PATCH TAR
+export PATCH TAR PERL_LIBDIR
 
 include makefiles/pkgbuild.mk
