@@ -69,6 +69,7 @@ $(PKGBUILDDIR)/.built: $(PKGBUILDDIR)/.configured
 $(PKGBUILDDIR)/.installed: $(PKGBUILDDIR)/.built
 	@echo "Installing $(NAME)-$(VERSION)"
 	@(cd $(PKGBUILDDIR); $(CDOBJDIR); make install)
+	@$(INSTALL_CUSTOM_CMDS)
 	@touch $@
 
 clean:
