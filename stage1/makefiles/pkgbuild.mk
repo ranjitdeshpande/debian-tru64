@@ -56,6 +56,8 @@ $(PKGBUILDDIR)/.configured: $(PKGBUILDDIR)/.patched
 	@echo "Configuring $(NAME)-$(VERSION)"
 	@(cd $(PKGBUILDDIR); $(MKOBJDIR); $(CDOBJDIR); \
 		$(CONFIG_SHELL) $(CONFIGURE) --prefix=$(TARGET_DIR)/usr \
+			--sysconfdir=$(TARGET_DIR)/etc \
+			--localstatedir=$(TARGET_DIR)/var \
 			$(CONFIG_FLAGS))
 	@touch $@
 
