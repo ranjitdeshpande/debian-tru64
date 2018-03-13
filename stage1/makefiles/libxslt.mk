@@ -14,20 +14,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-PKGS = patch sed gawk zlib gzip bzip2 xz unzip tar gmp mpfr mpc \
-       binutils gcc emacs libiconv gettext perl texinfo Locale-gettext \
-       help2man icu ncurses readline pcre pcre2 grep flex openssl curl \
-       libxml2 expat libarchive cmake dpkg libxslt bison coreutils
+NAME		:= libxslt
+VERSION		:= 1.1.32
+CONFIG_FLAGS	= --disable-static
+OBJDIR		:= __obj
+CC		= gcc
+PERL		= $(TARGET_DIR)/usr/bin/perl
+CPPFLAGS	= -pthread -I$(TARGET_DIR)/usr/include
+LDFLAGS		= -L$(TARGET_DIR)/usr/lib
+ac_cv_lib_pthread_pthread_join = yes
+export ac_cv_lib_pthread_pthread_join
 
-all clean clobber:
-	@for pkg in $(PKGS); do \
-		echo "*****************************************************"; \
-		echo "*"; \
-		echo "* $$pkg"; \
-		echo "*"; \
-		echo "*****************************************************"; \
-		make -f makefiles/$$pkg.mk $@; \
-		if [ $$? != "0" ]; then \
-			exit 1; \
-		fi; \
-	done
+include makefiles/pkgbuild.mk

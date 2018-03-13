@@ -54,4 +54,6 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz \
 	http://http.debian.net/debian/pool/main/d/dpkg/dpkg_1.19.0.5.tar.xz \
 	https://www.libarchive.org/downloads/libarchive-3.3.2.tar.gz \
-	https://github.com/libexpat/libexpat/releases/download/R_2_2_5/expat-2.2.5.tar.bz2
+	https://github.com/libexpat/libexpat/releases/download/R_2_2_5/expat-2.2.5.tar.bz2 \
+	http://mirrors.kernel.org/gnu/coreutils/coreutils-8.29.tar.xz \
+	http://mirrors.kernel.org/gnu/bison/bison-3.0.4.tar.xz

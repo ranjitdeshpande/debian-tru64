@@ -1,0 +1,29 @@
+diff -purN coreutils-8.29/lib/getprogname.c coreutils-8.29-patched/lib/getprogname.c
+--- coreutils-8.29/lib/getprogname.c	2017-11-23 13:32:18.000000000 -0800
++++ coreutils-8.29-patched/lib/getprogname.c	2018-03-12 15:10:29.000000000 -0700
+@@ -43,7 +43,7 @@
+ # include <string.h>
+ #endif
+ 
+-#ifdef __sgi
++#if defined (__sgi) || defined (__osf__)
+ # include <string.h>
+ # include <unistd.h>
+ # include <stdio.h>
+@@ -150,11 +150,15 @@ getprogname (void)
+       free (buf.ps_pathptr);
+     }
+   return p;
+-# elif defined __sgi                                        /* IRIX */
++# elif defined (__sgi) || defined (__osf__)	/* IRIX | Tru64 */
+   char filename[50];
+   int fd;
+ 
++#if defined (__sgi)
+   sprintf (filename, "/proc/pinfo/%d", (int) getpid ());
++#elif defined (__osf__)
++  sprintf (filename, "/proc/%d", (int) getpid ());
++#endif
+   fd = open (filename, O_RDONLY);
+   if (0 <= fd)
+     {
