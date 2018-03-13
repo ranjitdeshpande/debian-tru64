@@ -1,0 +1,29 @@
+diff -purN diffutils-3.6/lib/getprogname.c diffutils-3.6-new/lib/getprogname.c
+--- diffutils-3.6/lib/getprogname.c	2017-01-16 09:29:13.000000000 -0800
++++ diffutils-3.6-new/lib/getprogname.c	2018-03-08 09:27:49.285290959 -0800
+@@ -43,7 +43,7 @@
+ # include <string.h>
+ #endif
+ 
+-#ifdef __sgi
++#if defined (__sgi) || defined (__osf__)
+ # include <string.h>
+ # include <unistd.h>
+ # include <stdio.h>
+@@ -151,11 +151,15 @@ getprogname (void)
+       free (buf.ps_pathptr);
+     }
+   return p;
+-# elif defined __sgi                                        /* IRIX */
++# elif defined (__sgi) || defined (__osf__)	/* IRIX | Tru64 */
+   char filename[50];
+   int fd;
+ 
++#if defined (__sgi)
+   sprintf (filename, "/proc/pinfo/%d", (int) getpid ());
++#elif defined (__osf__)
++  sprintf (filename, "/proc/%d", (int) getpid ());
++#endif
+   fd = open (filename, O_RDONLY);
+   if (0 <= fd)
+     {

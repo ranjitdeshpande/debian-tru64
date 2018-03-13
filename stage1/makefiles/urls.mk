@@ -56,4 +56,7 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	https://www.libarchive.org/downloads/libarchive-3.3.2.tar.gz \
 	https://github.com/libexpat/libexpat/releases/download/R_2_2_5/expat-2.2.5.tar.bz2 \
 	http://mirrors.kernel.org/gnu/coreutils/coreutils-8.29.tar.xz \
-	http://mirrors.kernel.org/gnu/bison/bison-3.0.4.tar.xz
+	http://mirrors.kernel.org/gnu/bison/bison-3.0.4.tar.xz \
+	http://mirrors.kernel.org/gnu/libsigsegv/libsigsegv-2.9.tar.gz \
+	http://mirrors.kernel.org/gnu/diffutils/diffutils-3.6.tar.xz \
+	http://mirrors.kernel.org/gnu/findutils/findutils-4.6.0.tar.gz
