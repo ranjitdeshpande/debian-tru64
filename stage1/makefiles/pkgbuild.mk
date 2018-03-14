@@ -62,7 +62,7 @@ ifeq ($(NO_STD_CONFIG_FLAGS),)
 			--localstatedir=$(TARGET_DIR)/var \
 			$(CONFIG_FLAGS))
 else
-	(cd $(PKGBUILDDIR); $(MKOBJDIR); $(CDOBJDIR); \
+	@(cd $(PKGBUILDDIR); $(MKOBJDIR); $(CDOBJDIR); \
 		$(CONFIG_SHELL) $(CONFIGURE) $(CONFIG_FLAGS))
 endif
 	@touch $@
@@ -74,7 +74,7 @@ $(PKGBUILDDIR)/.built: $(PKGBUILDDIR)/.configured
 
 $(PKGBUILDDIR)/.installed: $(PKGBUILDDIR)/.built
 	@echo "Installing $(NAME)-$(VERSION)"
-	@(cd $(PKGBUILDDIR); $(CDOBJDIR); make install)
+	@(cd $(PKGBUILDDIR); $(CDOBJDIR); make $(MAKEVARS) install)
 	@$(INSTALL_CUSTOM_CMDS)
 	@touch $@
 
