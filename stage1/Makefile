@@ -18,7 +18,10 @@ PKGS = patch sed gawk zlib gzip bzip2 xz unzip tar gmp mpfr mpc \
        binutils gcc emacs libiconv gettext perl texinfo Locale-gettext \
        help2man icu ncurses readline pcre pcre2 grep flex openssl curl \
        libxml2 expat libarchive cmake dpkg libxslt bison coreutils \
-       libsigsegv diffutils bash autoconf automake
+       libsigsegv diffutils bash autoconf automake file TimeDate \
+       inc-latest Module-Build Sub-Identify SUPER Test-MockModule \
+       Archive-Zip Archive-Cpio strip-nondeterminism TermReadKey \
+       Unicode-LineBreak Test-Simple Encode-EUCJPASCII Encode-JISX0213
 
 all clean clobber:
 	@for pkg in $(PKGS); do \

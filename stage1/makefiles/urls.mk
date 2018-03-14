@@ -63,4 +63,21 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	http://mirrors.kernel.org/gnu/bash/bash-4.4.18.tar.gz \
 	http://mirrors.kernel.org/gnu/autoconf/autoconf-2.69.tar.xz \
 	http://mirrors.kernel.org/gnu/automake/automake-1.16.tar.xz \
-	ftp://ftp.astron.com/pub/file/file-5.32.tar.gz
+	ftp://ftp.astron.com/pub/file/file-5.32.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/G/GB/GBARR/TimeDate-2.30.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/P/PH/PHRED/Archive-Zip-1.60.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/G/GF/GFRANKS/Test-MockModule-0.13.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/L/LE/LEONT/Module-Build-0.4224.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/D/DA/DAGOLDEN/inc-latest-0.500.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/C/CH/CHROMATIC/SUPER-1.20141117.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/R/RG/RGARCIA/Sub-Identify-0.14.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/P/PI/PIXEL/Archive-Cpio-0.10.tar.gz \
+	http://http.debian.net/debian/pool/main/s/strip-nondeterminism/strip-nondeterminism_0.040.orig.tar.bz2 \
+	http://http.debian.net/debian/pool/main/d/debhelper/debhelper_11.1.5.tar.xz \
+	https://distfiles.macports.org/po4a/po4a-0.52.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/J/JS/JSTOWE/TermReadKey-2.37.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/N/NE/NEZUMI/Unicode-LineBreak-2017.004.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/E/EX/EXODIST/Test-Simple-1.302133.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/N/NE/NEZUMI/MIME-Charset-1.012.2.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/N/NE/NEZUMI/Encode-EUCJPASCII-0.03.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/N/NE/NEZUMI/Encode-JISX0213-0.04.tar.gz
