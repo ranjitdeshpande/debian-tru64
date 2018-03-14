@@ -1,0 +1,201 @@
+diff -purN debhelper/dh_dwz debhelper-patched/dh_dwz
+--- debhelper/dh_dwz	2018-01-07 07:08:16 -0800
++++ debhelper-patched/dh_dwz	2018-03-13 20:56:15 -0800
+@@ -79,7 +79,7 @@ sub testfile {
+ 	return if -d _;
+ 	# Do not process output files from dwz
+ 	return if index($fn, '/debug/.dwz/') > -1;
+-	if (is_so_or_exec_elf_file($fn)) {
++	if (is_so_or_exec_coff_file($fn)) {
+ 		push(@elf_files, $fn);
+ 	}
+ 	return;
+diff -purN debhelper/dh_makeshlibs debhelper-patched/dh_makeshlibs
+--- debhelper/dh_makeshlibs	2018-01-21 23:17:56 -0800
++++ debhelper-patched/dh_makeshlibs	2018-03-13 20:57:00 -0800
+@@ -168,7 +168,7 @@ foreach my $package (@{$dh{DOPACKAGES}})
+ 	while (my $lib_file = <FIND>) {
+ 		my ($library, $major);
+ 		chomp($lib_file);
+-		next if not is_so_or_exec_elf_file($lib_file);
++		next if not is_so_or_exec_coff_file($lib_file);
+ 		push(@lib_files, $lib_file) if compat(11);
+ 		my $ret = compat(10) ? `$objdump -p "$lib_file"` : qx_cmd($objdump, '-p', $lib_file);
+ 		if ($ret=~m/\s+SONAME\s+(.*)\.so\.(.*)/) {
+diff -purN debhelper/dh_shlibdeps debhelper-patched/dh_shlibdeps
+--- debhelper/dh_shlibdeps	2018-01-07 07:08:16 -0800
++++ debhelper-patched/dh_shlibdeps	2018-03-13 21:05:52 -0800
+@@ -25,7 +25,7 @@ shared library dependencies for packages
+ 
+ This program is merely a wrapper around L<dpkg-shlibdeps(1)> that calls it
+ once for each package listed in the F<control> file, passing it
+-a list of ELF executables and shared libraries it has found.
++a list of COFF executables and shared libraries it has found.
+ 
+ =head1 OPTIONS
+ 
+@@ -113,7 +113,7 @@ on_pkgs_in_parallel {
+ 		my $ext=pkgext($package);
+ 		my (@filelist);
+ 
+-		# Generate a list of ELF binaries in the package, ignoring any
++		# Generate a list of COFF binaries in the package, ignoring any
+ 		# we were told to exclude.
+ 		my $find_options='';
+ 		if (defined($dh{EXCLUDE_FIND}) && $dh{EXCLUDE_FIND} ne '') {
+@@ -130,7 +130,7 @@ on_pkgs_in_parallel {
+ 				# multiple files..
+ 				my $ff = qx_cmd('file', '-e', 'apptype', '-e', 'ascii', '-e', 'encoding',
+ 					'-e', 'cdf', '-e', 'compress', '-e', 'tar', $file);
+-				if ($ff =~ m/ELF/ && $ff !~ /statically linked/) {
++				if ($ff =~ m/COFF/ && $ff !~ /statically linked/) {
+ 					push @filelist, $file;
+ 				}
+ 			}
+@@ -155,12 +155,12 @@ on_pkgs_in_parallel {
+ 				}
+ 
+ 				return if not -f _;
+-				return if not is_so_or_exec_elf_file($fn);
++				return if not is_so_or_exec_coff_file($fn);
+ 				# TODO this is slow, optimize. Ie, file can run once on
+ 				# multiple files..
+ 				my $ff = qx_cmd('file', '-e', 'apptype', '-e', 'ascii', '-e', 'encoding',
+ 					'-e', 'cdf', '-e', 'compress', '-e', 'tar', $fn);
+-				if ($ff =~ m/ELF/ && $ff !~ /statically linked/) {
++				if ($ff =~ m/COFF/ && $ff !~ /statically linked/) {
+ 					push(@filelist, $fn);
+ 				}
+ 			};
+diff -purN debhelper/dh_strip debhelper-patched/dh_strip
+--- debhelper/dh_strip	2018-01-07 07:08:16 -0800
++++ debhelper-patched/dh_strip	2018-03-13 21:07:42 -0800
+@@ -125,7 +125,7 @@ debug symbol packages.
+ 
+ The automatic creation of debug symbol packages can also be prevented
+ by adding B<noautodbgsym> to the B<DEB_BUILD_OPTIONS> environment
+-variable.  However, B<dh_strip> will still add debuglinks to ELF
++variable.  However, B<dh_strip> will still add debuglinks to COFF
+ binaries when this flag is set.  This is to ensure that the regular
+ deb package will be identical with and without this flag (assuming it
+ is otherwise "bit-for-bit" reproducible).
+@@ -201,11 +201,11 @@ sub testfile {
+ 
+ 		# Does its filename look like a shared library?
+ 		#  - *.cmxs are OCaml native code shared libraries
+-		#  - *.node are also native ELF binaries (for node-js)
++		#  - *.node are also native COFF binaries (for node-js)
+ 		if ($fn =~ m/\.(?:so.*?|cmxs|node)$/) {
+ 			# Ok, do the expensive test.
+ 			my $type = get_file_type($fn, 1);
+-			if ($type =~ m/ELF.*shared/) {
++			if ($type =~ m/COFF.*shared/) {
+ 				push @shared_libs, $fn;
+ 				return;
+ 			}
+@@ -215,16 +215,16 @@ sub testfile {
+ 		if ($mode & 0111) {
+ 			# Ok, expensive test.
+ 			my $type = get_file_type($fn, 1);
+-			if ($type =~ m/ELF.*(executable|shared)/) {
++			if ($type =~ m/COFF.*(executable|shared)/) {
+ 				push(@executables, $fn);
+ 				return;
+ 			}
+ 		}
+ 	} else {
+-		# In compat 11, we check the ELF header manually (because bulking file(1) is a pain and
++		# In compat 11, we check the COFF header manually (because bulking file(1) is a pain and
+ 		# it is too slow otherwise)
+ 
+-		if (is_so_or_exec_elf_file($fn)) {
++		if (is_so_or_exec_coff_file($fn)) {
+ 			# -x is not good enough for this test
+ 			if ($mode & 0111) {
+ 				push(@executables, $fn);
+@@ -278,7 +278,7 @@ sub make_debug {
+ 	#
+ 	# Disable caching for non-build-id based extractions.
+ 	# Unfortunately, it breaks when there are hardlinks to the same
+-	# ELF files.
++	# COFF files.
+ 	my $file_info = get_file_type($file, $use_build_id ? 1 : 0);
+ 	return unless $file_info =~ /not stripped/;
+ 
+@@ -358,21 +358,20 @@ sub process_packages {
+ 			my $debug_path = make_debug($objcopy, $_, $tmp, $debugtmp, $use_build_id) if $keep_debug;
+ 			# Note that all calls to strip on shared libs
+ 			# *must* include the --strip-unneeded.
+-			doit($strip, "--remove-section=.comment", "--remove-section=.note", "--strip-unneeded", $_);
++			doit($strip, $_);
+ 			attach_debug($objcopy, $_, $debug_path) if defined $debug_path;
+ 		}
+ 
+ 		foreach (@executables) {
+ 			my $debug_path = make_debug($objcopy, $_, $tmp, $debugtmp, $use_build_id) if $keep_debug;
+-			doit($strip, "--remove-section=.comment", "--remove-section=.note", $_);
++			doit($strip, $_);
+ 			attach_debug($objcopy, $_, $debug_path) if defined $debug_path;
+ 		}
+ 
+ 		foreach (@static_libs) {
+ 			# NB: The short variant (-D) is broken in Jessie
+ 			# (binutils/2.25-3)
+-			doit($strip, '--strip-debug', '--remove-section=.comment',
+-				 '--remove-section=.note', '--enable-deterministic-archives', $_);
++			doit($strip, $_);
+ 		}
+ 		if ($no_auto_dbgsym and $use_build_id > 1) {
+ 			# When DEB_BUILD_OPTIONS contains noautodbgsym, remove the
+diff -purN debhelper/lib/Debian/Debhelper/Dh_Lib.pm debhelper-patched/lib/Debian/Debhelper/Dh_Lib.pm
+--- debhelper/lib/Debian/Debhelper/Dh_Lib.pm	2018-02-25 01:48:57 -0800
++++ debhelper-patched/lib/Debian/Debhelper/Dh_Lib.pm	2018-03-13 20:55:46 -0800
+@@ -60,9 +60,10 @@ our (@EXPORT, %dh);
+ 	    &glob_expand_error_handler_warn_and_discard &glob_expand
+ 	    &glob_expand_error_handler_silently_ignore DH_BUILTIN_VERSION
+ 	    &print_and_complex_doit &default_sourcedir &qx_cmd
+-	    &compute_doc_main_package &is_so_or_exec_elf_file &hostarch
+-	    &assert_opt_is_known_package &dbgsym_tmpdir &find_hardlinks
+-	    &should_use_root &gain_root_cmd DEFAULT_PACKAGE_TYPE
++	    &compute_doc_main_package &is_so_or_exec_elf_file 
++	    &is_so_or_exec_coff_file &hostarch &assert_opt_is_known_package
++	    &dbgsym_tmpdir &find_hardlinks &should_use_root
++	    &gain_root_cmd DEFAULT_PACKAGE_TYPE
+ 	    DBGSYM_PACKAGE_TYPE
+ );
+ 
+@@ -2236,6 +2237,34 @@ sub is_so_or_exec_elf_file {
+ 	return 1;
+ }
+ 
++use constant {
++	# The COFF header on Tru64 is at least 24 bytes; any file shorter than that is not an COFF file
++	COFF_MIN_LENGTH => 0x18,
++	COFF_MAGIC => "\x83\x01",
++	COFF_TYPE_EXECUTABLE => 0x3003,
++	COFF_TYPE_SHARED_OBJECT => 0x2003,
++};
++
++sub is_so_or_exec_coff_file {
++	my ($file) = @_;
++	open(my $fd, '<:raw', $file) or error("open $file: $!");
++	my $buflen = 0;
++	while ($buflen < COFF_MIN_LENGTH) {
++		my $r = read($fd, $buf, COFF_MIN_LENGTH - $buflen, $buflen) // error("read ($file): $!");
++		last if $r == 0; # EOF
++		$buflen += $r
++	}
++	close($fd);
++	return 0 if $buflen < COFF_MIN_LENGTH;
++
++	return 0 if substr($buf, 0x00, 2) ne COFF_MAGIC;
++
++	my $coff_type = substr($buf, 0x16, 2);
++
++	return 0 if $coff_type != COFF_TYPE_EXECUTABLE and $coff_type != COFF_TYPE_SHARED_OBJECT;
++	return 1;
++}
++
+ sub on_pkgs_in_parallel(&) {
+ 	unshift(@_, $dh{DOPACKAGES});
+ 	goto \&on_items_in_parallel;

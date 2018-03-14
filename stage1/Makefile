@@ -25,7 +25,7 @@ PKGS = patch sed gawk zlib gzip bzip2 xz unzip tar gmp mpfr mpc \
        YAML-Tiny Test-Requires Module-Depends Module-ScanDeps Module-Install \
        Encode-ISO2022 Encode-EUCJPASCII Encode-JISX0213 Encode-HanExtra \
        POD2-Base MIME-Charset Text-CharWidth Text-WrapI18N Unicode-LineBreak \
-       SGMLSpm
+       SGMLSpm po4a debhelper
 
 all clean clobber:
 	@for pkg in $(PKGS); do \
