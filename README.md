@@ -42,3 +42,15 @@ Built CMake. This is a really annoying package which is pure bloatware. It
 took forever to compile it on my PC164-based system. It is needed to build
 many other packages so it was better to go through this in the beginning.
 It has a lot of dependencies and they took their own time to build as well.
+
+### March 14th 2018
+
+Completed dpkg and debhelper build. Minimally hacked dpkg to handle COFF
+files on Tru64. Now comes the interesting part. This is the overlap between
+Stage 1 and Stage 2. Packages will need to be built in Stage 1 as and when
+Stage 2 needs tools/libraries. Stage 2 needs to be self-hosting. In other
+words, all of Stage 2's tools/libraries need to be referenced from their
+final location in the filesystem. As of now, the install location is
+/usr/debian since the /usr filesystem is usually larger on default Tru64
+installs.
+
