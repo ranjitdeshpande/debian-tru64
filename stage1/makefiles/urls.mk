@@ -80,4 +80,19 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	http://search.cpan.org/CPAN/authors/id/E/EX/EXODIST/Test-Simple-1.302133.tar.gz \
 	http://search.cpan.org/CPAN/authors/id/N/NE/NEZUMI/MIME-Charset-1.012.2.tar.gz \
 	http://search.cpan.org/CPAN/authors/id/N/NE/NEZUMI/Encode-EUCJPASCII-0.03.tar.gz \
-	http://search.cpan.org/CPAN/authors/id/N/NE/NEZUMI/Encode-JISX0213-0.04.tar.gz
+	http://search.cpan.org/CPAN/authors/id/N/NE/NEZUMI/Encode-JISX0213-0.04.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/A/AU/AUDREYT/Encode-HanExtra-0.23.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/B/BI/BINGOS/ExtUtils-MakeMaker-7.32.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/R/RC/RCLAMP/Module-Depends-0.16.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/R/RC/RCLAMP/Class-Accessor-Chained-0.01.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/K/KA/KASEI/Class-Accessor-0.51.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/N/NE/NEZUMI/Encode-ISO2022-0.04.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/E/ET/ETHER/Module-Install-1.19.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/S/SH/SHLOMIF/File-Remove-1.57.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/E/ET/ETHER/YAML-Tiny-1.73.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/R/RS/RSCHUPP/Module-ScanDeps-1.24.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/T/TO/TOKUHIROM/Test-Requires-0.10.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/F/FE/FERREIRA/POD2-Base-0.043.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/K/KU/KUBOTA/Text-WrapI18N-0.06.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/K/KU/KUBOTA/Text-CharWidth-0.04.tar.gz \
+	http://search.cpan.org/CPAN/authors/id/R/RA/RAAB/SGMLSpm-1.1.tar.gz
