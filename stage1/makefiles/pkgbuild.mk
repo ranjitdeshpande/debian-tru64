@@ -54,11 +54,17 @@ endif
 
 $(PKGBUILDDIR)/.configured: $(PKGBUILDDIR)/.patched
 	@echo "Configuring $(NAME)-$(VERSION)"
+ifeq ($(NO_STD_CONFIG_FLAGS),)
 	@(cd $(PKGBUILDDIR); $(MKOBJDIR); $(CDOBJDIR); \
-		$(CONFIG_SHELL) $(CONFIGURE) --prefix=$(TARGET_DIR)/usr \
+		$(CONFIG_SHELL) $(CONFIGURE) \
+			--prefix=$(TARGET_DIR)/usr \
 			--sysconfdir=$(TARGET_DIR)/etc \
 			--localstatedir=$(TARGET_DIR)/var \
 			$(CONFIG_FLAGS))
+else
+	(cd $(PKGBUILDDIR); $(MKOBJDIR); $(CDOBJDIR); \
+		$(CONFIG_SHELL) $(CONFIGURE) $(CONFIG_FLAGS))
+endif
 	@touch $@
 
 $(PKGBUILDDIR)/.built: $(PKGBUILDDIR)/.configured

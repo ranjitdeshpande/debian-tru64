@@ -17,6 +17,8 @@
 NAME		:= perl
 VERSION		:= 5.26.1
 CONFIGURE	= ./configure.gnu
+CONFIG_FLAGS	= --prefix=$(TARGET_DIR)/usr
 CC		= gcc
+NO_STD_CONFIG_FLAGS = yes
 
 include makefiles/pkgbuild.mk

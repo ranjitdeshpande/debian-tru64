@@ -16,12 +16,14 @@
 
 NAME		:= cmake
 VERSION		:= 3.7.2
-CONFIG_FLAGS	= --system-libs --mandir=/share/man --no-system-jsoncpp \
+CONFIG_FLAGS	= --prefix=$(TARGET_DIR)/usr --system-libs \
+		  --mandir=/share/man --no-system-jsoncpp \
 		  --docdir=/share/doc/cmake-3.7.2 --no-server
 CC		= gcc
 CONFIGURE	= ./bootstrap
 CFLAGS		= -D_XOPEN_SOURCE=500 -I$(TARGET_DIR)/usr/include
 CXXFLAGS	= $(CFLAGS)
 LDFLAGS		= -L$(TARGET_DIR)/usr/lib
+NO_STD_CONFIG_FLAGS = yes
 
 include makefiles/pkgbuild.mk

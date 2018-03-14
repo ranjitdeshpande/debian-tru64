@@ -16,9 +16,11 @@
 
 NAME		:= openssl
 VERSION		:= 1.0.2n
-CONFIG_FLAGS	= threads shared zlib-dynamic -lpthread \
-		   --openssldir=$(TARGET_DIR)/etc/ssl osf1-alpha-gcc
+CONFIG_FLAGS	= --prefix=$(TARGET_DIR)/usr threads shared \
+		  zlib-dynamic -lpthread --openssldir=$(TARGET_DIR)/etc/ssl \
+		  osf1-alpha-gcc
 CC		= gcc
 CONFIGURE	= ./Configure
+NO_STD_CONFIG_FLAGS = yes
 
 include makefiles/pkgbuild.mk
