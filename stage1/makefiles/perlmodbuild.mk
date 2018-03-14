@@ -68,17 +68,47 @@ endif
 
 $(PKGBUILDDIR)/.configured: $(PKGBUILDDIR)/.patched
 	@echo "Configuring $(PERLMODNAME)-$(VERSION)"
-	@(cd $(PKGBUILDDIR); $(PERL) Makefile.PL)
+	@(cd $(PKGBUILDDIR); \
+		if [ -f Makefile.PL ]; then \
+			$(PERL) Makefile.PL; \
+		else \
+			if [ -f Build.PL ]; then \
+				$(PERL) Build.PL; \
+			else \
+				echo "Cannot configure module."; \
+				exit 1; \
+			fi; \
+		fi)
 	@touch $@
 
 $(PKGBUILDDIR)/.built: $(PKGBUILDDIR)/.configured
 	@echo "Building $(PERLMODNAME)-$(VERSION)"
-	(cd $(PKGBUILDDIR); $(CDOBJDIR); make $(MAKEVARS))
+	@(cd $(PKGBUILDDIR); $(CDOBJDIR); \
+		if [ -f Makefile ]; then \
+			make $(MAKEVARS); \
+		else \
+			if [ -f Build ]; then \
+				$(PERL) Build; \
+			else \
+				echo "Cannot build module."; \
+				exit 1; \
+			fi; \
+		fi)
 	@touch $@
 
 $(PKGBUILDDIR)/.installed: $(PKGBUILDDIR)/.built
 	@echo "Installing $(PERLMODNAME)-$(VERSION)"
-	@(cd $(PKGBUILDDIR); $(CDOBJDIR); make install)
+	@(cd $(PKGBUILDDIR); $(CDOBJDIR); \
+		if [ -f Makefile ]; then \
+			make $(MAKEVARS) install; \
+		else \
+			if [ -f Build ]; then \
+				$(PERL) Build install; \
+			else \
+				echo "Cannot install module."; \
+				exit 1; \
+			fi; \
+		fi)
 	@touch $@
 
 clean:
