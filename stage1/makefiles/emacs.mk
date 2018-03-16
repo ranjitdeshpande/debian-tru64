@@ -18,6 +18,7 @@ NAME		:= emacs
 VERSION		:= 23.4
 CONFIG_FLAGS	= --without-xim --with-x-toolkit=no --without-x
 OBJDIR		:= __obj
+CC		= gcc
 
 ac_cv_header_getopt_h = no
 export ac_cv_header_getopt_h
