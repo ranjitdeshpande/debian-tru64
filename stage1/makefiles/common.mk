@@ -18,7 +18,8 @@ include makefiles/urls.mk
 
 DOWNLOAD_DIR	:= $(shell pwd)/../download
 BUILD_DIR	:= $(shell pwd)/build
-TARGET_DIR	:= $(shell pwd)/target
+TARGET_DIR	:= /usr/debian
+#TARGET_DIR	:= $(shell pwd)/target
 PATCH_DIR	:= $(shell pwd)/patches
 
 LD_LIBRARY_PATH := $(LD_LIBRARY_PATH):$(TARGET_DIR)/usr/lib
@@ -37,7 +38,7 @@ PKGSUFFIX	= $(lastword $(subst ., ,$(PKGSRC)))
 
 # Shell command with LD_LIBRARY_PATH and PATH variables
 myshell		= $(shell LD_LIBRARY_PATH=$(LD_LIBRARY_PATH) \
-			PATH=$(TARGET_DIR)/usr/bin:$PATH $1)
+			PATH=$(PATH) $1)
 
 IS_TAR		= $(findstring .tar.,$(PKGSRC))
 ifeq ($(PKGSUFFIX),gz)
