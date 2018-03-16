@@ -54,3 +54,7 @@ final location in the filesystem. As of now, the install location is
 /usr/debian since the /usr filesystem is usually larger on default Tru64
 installs.
 
+### March 15th 2018
+
+Switched target to /usr/debian since final packages will all look for files
+in their final resting place. This is true even while building packages.
