@@ -14,8 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-PKGS = patch sed gawk zlib gzip bzip2 xz unzip tar gmp mpfr mpc \
-       binutils gcc emacs libiconv gettext perl texinfo Locale-gettext \
+PKGS = patch sed gawk zlib gzip bzip2 xz unzip gmp mpfr mpc libiconv \
+       tar binutils gcc emacs gettext perl texinfo Locale-gettext \
        help2man icu ncurses readline pcre pcre2 grep flex openssl curl \
        libxml2 expat libarchive cmake dpkg libxslt bison coreutils \
        libsigsegv diffutils bash autoconf automake file ExtUtils-MakeMaker \
