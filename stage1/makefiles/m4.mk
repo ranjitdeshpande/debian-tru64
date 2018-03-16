@@ -18,5 +18,6 @@ NAME		:= m4
 VERSION		:= 1.4.18
 CONFIG_FLAGS	:=
 OBJDIR		:= __obj
+CC		= gcc
 
 include makefiles/pkgbuild.mk
