@@ -15,9 +15,9 @@
 #
 
 PKGS = patch sed gawk zlib gzip bzip2 xz unzip gmp mpfr mpc libiconv \
-       tar binutils gcc emacs gettext perl texinfo Locale-gettext \
+       tar binutils gcc m4 emacs gettext perl texinfo Locale-gettext \
        help2man icu ncurses readline pcre pcre2 grep flex openssl curl \
-       libxml2 expat libarchive cmake dpkg libxslt bison coreutils \
+       libxml2 expat libarchive dpkg libxslt bison coreutils \
        libsigsegv diffutils bash autoconf automake file ExtUtils-MakeMaker \
        TimeDate inc-latest Module-Build Sub-Identify SUPER Test-MockModule \
        Archive-Zip Archive-Cpio strip-nondeterminism TermReadKey \
@@ -25,7 +25,7 @@ PKGS = patch sed gawk zlib gzip bzip2 xz unzip gmp mpfr mpc libiconv \
        YAML-Tiny Test-Requires Module-Depends Module-ScanDeps Module-Install \
        Encode-ISO2022 Encode-EUCJPASCII Encode-JISX0213 Encode-HanExtra \
        POD2-Base MIME-Charset Text-CharWidth Text-WrapI18N Unicode-LineBreak \
-       SGMLSpm po4a debhelper
+       SGMLSpm po4a debhelper cmake
 
 all clean clobber:
 	@for pkg in $(PKGS); do \
