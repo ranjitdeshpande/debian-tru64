@@ -18,6 +18,5 @@ NAME		:= libiconv
 VERSION		:= 1.15
 CONFIG_FLAGS	:=
 OBJDIR		:= __obj
-CC		= gcc
 
 include makefiles/pkgbuild.mk
