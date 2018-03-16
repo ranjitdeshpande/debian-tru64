@@ -21,7 +21,7 @@
 # the makefile infrastructure.
 
 BUILDDIR=`pwd`/build
-TARGETDIR=`pwd`/target
+TARGETDIR=/usr/debian #`pwd`/target
 DLDIR=`pwd`/../download
 
 echo
@@ -30,9 +30,10 @@ echo "Bootstrapping GNU make..."
 echo
 echo
 
-# Create a fake makeinfo shell script
-mkdir -p ${TARGETDIR}/usr/bin
-cat <<__EOF >${TARGETDIR}/usr/bin/makeinfo
+if [ ! -f ${TARGETDIR}/usr/bin/makeinfo ]; then
+	# Create a fake makeinfo shell script
+	mkdir -p ${TARGETDIR}/usr/bin
+	cat <<__EOF >${TARGETDIR}/usr/bin/makeinfo
 #!/bin/sh
 
 while [ -n \$1 ]; do
@@ -47,36 +48,92 @@ done
 exit 1
 __EOF
 
-chmod +x ${TARGETDIR}/usr/bin/makeinfo
+	chmod +x ${TARGETDIR}/usr/bin/makeinfo
+fi
+
 OLDPATH=${PATH}
 PATH=${PATH}:${TARGETDIR}/usr/bin
 export PATH
 
+PKGBUILD=`echo ${BUILDDIR}/make*`
+
 # Extract GNU make
-mkdir -p $BUILDDIR
-cd ${BUILDDIR}
-gzcat ${DLDIR}/make*.tar.gz | tar xf -
+TARGET=${PKGBUILD}/.extracted
+if [ "x${PKGBUILD}" = "x" -o ! -f ${TARGET} ]; then
+	echo "Extracting make..."
+	OLDPWD=`pwd`
+	mkdir -p $BUILDDIR
+	cd ${BUILDDIR}
+	gzcat ${DLDIR}/make*.tar.gz | tar xf -
+	if [ $? != 0 ]; then
+		echo "Failed to extract make source archive."
+		exit 1
+	fi
+	PKGBUILD=`echo ${BUILDDIR}/make*`
+	TARGET=${PKGBUILD}/.extracted
+	touch ${TARGET}
+	cd ${OLDPWD}
+fi
 
 # Patch configure
-cd make-*
-cat configure | sed -e 's/-rdynamic/-Wl,-rdynamic/g' > configure.new
-mv configure.new configure
+TARGET=${PKGBUILD}/.patched
+if [ ! -f ${TARGET} ]; then
+	echo "Patching make..."
+	OLDPWD=`pwd`
+	cd ${PKGBUILD}
+	cat configure | sed -e 's/-rdynamic/-Wl,-rdynamic/g' > configure.new
+	if [ $? != 0 ]; then
+		echo "Failed to patch make source archive."
+		exit 1
+	fi
+	mv configure.new configure
+	touch ${TARGET}
+	cd ${OLDPWD}
+fi
 
 # Run configure
-mkdir __obj
-cd __obj
-/bin/sh ../configure --prefix=${TARGETDIR}/usr --without-guile
+TARGET=${PKGBUILD}/.configured
+if [ ! -f ${TARGET} ]; then
+	echo "Configuring make..."
+	OLDPWD=`pwd`
+	cd ${PKGBUILD}
+	mkdir -p __obj
+	cd __obj
+	/bin/ksh ../configure --prefix=${TARGETDIR}/usr --without-guile
+	if [ $? != 0 ]; then
+		exit 1
+	fi
+	touch ${TARGET}
+	cd ${OLDPWD}
+fi
 
 # Make make :-)
-make all install
+TARGET=${PKGBUILD}/.built
+if [ ! -f ${TARGET} ]; then
+	echo "Building make..."
+	OLDPWD=`pwd`
+	cd ${PKGBUILD}/__obj
+	make all || exit 1
+	touch ${TARGET}
+	cd ${OLDPWD}
+fi
+
+# Install make
+TARGET=${PKGBUILD}/.installed
+if [ ! -f ${TARGET} ]; then
+	echo "Installing make..."
+	OLDPWD=`pwd`
+	cd ${PKGBUILD}/__obj
+	make install || exit 1
+	touch ${TARGET}
+	cd ${OLDPWD}
+fi
 
 echo
 echo
 echo "Building Debian-Tru64 Stage1..."
 echo
 echo
-
-cd ../../..
 
 PATH=${TARGETDIR}/usr/bin:${OLDPATH}
 export PATH
