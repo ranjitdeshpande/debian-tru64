@@ -17,7 +17,7 @@
 PKGS = patch sed gawk zlib gzip bzip2 xz unzip gmp mpfr mpc libiconv \
        tar binutils gcc m4 emacs gettext perl texinfo Locale-gettext \
        help2man icu ncurses readline pcre pcre2 grep flex openssl curl \
-       libxml2 expat libarchive dpkg libxslt bison coreutils \
+       libxml2 expat libarchive dpkg libxslt bison coreutils findutils \
        libsigsegv diffutils bash autoconf automake file ExtUtils-MakeMaker \
        TimeDate inc-latest Module-Build Sub-Identify SUPER Test-MockModule \
        Archive-Zip Archive-Cpio strip-nondeterminism TermReadKey \
