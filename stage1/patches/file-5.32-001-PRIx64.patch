@@ -1,0 +1,29 @@
+diff -purN file-5.32/src/apprentice.c file-5.32-patched/src/apprentice.c
+--- file-5.32/src/apprentice.c	2017-08-28 06:39:18 -0700
++++ file-5.32-patched/src/apprentice.c	2018-03-16 19:26:26 -0800
+@@ -90,6 +90,11 @@ FILE_RCSID("@(#)$File: apprentice.c,v 1.
+ #define MAP_TYPE_MALLOC	1
+ #define MAP_TYPE_MMAP	2
+ 
++#ifdef __osf__
++#define PRIx64			"lx"
++#define strtoull(n, e, b)	strtoul(n, e, b)
++#endif
++
+ struct magic_entry {
+ 	struct magic *mp;	
+ 	uint32_t cont_count;
+diff -purN file-5.32/src/readcdf.c file-5.32-patched/src/readcdf.c
+--- file-5.32/src/readcdf.c	2017-05-08 11:10:13 -0700
++++ file-5.32-patched/src/readcdf.c	2018-03-16 19:24:57 -0800
+@@ -43,6 +43,10 @@ FILE_RCSID("@(#)$File: readcdf.c,v 1.65
+ #define __arraycount(a) (sizeof(a) / sizeof(a[0]))
+ #endif
+ 
++#ifdef __osf__
++#define PRIx64	"lx"
++#endif
++
+ #define NOTMIME(ms) (((ms)->flags & MAGIC_MIME) == 0)
+ 
+ static const struct nv {
