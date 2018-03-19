@@ -28,7 +28,7 @@ PKGCUSTOM_PATCH = find $(PKGBUILDDIR) -type f -exec $(PERL) -p -i -e \
 		  's/\#!\/bin\/sh/\#!$(BASH_ESC)/g' {} \;
 CONFIGURE	= true
 NO_STD_CONFIG_FLAGS = yes
-MAKEVARS	= PREFIX=$(TARGET_DIR)/usr PERLLIBDIR=$(TARGET_DIR)/usr/lib/perl5/5.26.1
+MAKEVARS	= PREFIX=$(TARGET_DIR)/usr PERLLIBDIR=$(TARGET_DIR)/usr/lib/perl5/5.26.1/Debian/Debhelper
 
 include makefiles/pkgbuild.mk
 
