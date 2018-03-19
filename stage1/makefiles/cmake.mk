@@ -16,10 +16,11 @@
 
 NAME		:= cmake
 VERSION		:= 3.7.2
-CONFIG_FLAGS	= --prefix=$(TARGET_DIR)/usr --system-libs \
-		  --mandir=/share/man --no-system-jsoncpp \
-		  --docdir=/share/doc/cmake-3.7.2 --no-server
+CONFIG_FLAGS	= --prefix=$(TARGET_DIR)/usr --mandir=/share/man \
+		  --docdir=/share/doc/cmake-3.7.2 --no-server \
+		  --system-libs --no-system-jsoncpp
 CC		= gcc
+CXX		= g++
 CONFIGURE	= ./bootstrap
 CFLAGS		= -D_XOPEN_SOURCE=500 -I$(TARGET_DIR)/usr/include
 CXXFLAGS	= $(CFLAGS)
