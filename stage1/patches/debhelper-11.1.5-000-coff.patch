@@ -164,7 +164,7 @@ diff -purN debhelper/lib/Debian/Debhelper/Dh_Lib.pm debhelper-patched/lib/Debian
  	    DBGSYM_PACKAGE_TYPE
  );
  
-@@ -2236,6 +2237,34 @@ sub is_so_or_exec_elf_file {
+@@ -2236,6 +2237,35 @@ sub is_so_or_exec_elf_file {
  	return 1;
  }
  
@@ -180,6 +180,7 @@ diff -purN debhelper/lib/Debian/Debhelper/Dh_Lib.pm debhelper-patched/lib/Debian
 +	my ($file) = @_;
 +	open(my $fd, '<:raw', $file) or error("open $file: $!");
 +	my $buflen = 0;
++	my ($buf);
 +	while ($buflen < COFF_MIN_LENGTH) {
 +		my $r = read($fd, $buf, COFF_MIN_LENGTH - $buflen, $buflen) // error("read ($file): $!");
 +		last if $r == 0; # EOF
