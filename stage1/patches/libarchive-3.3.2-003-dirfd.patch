@@ -6,7 +6,7 @@ diff -purN libarchive-3.3.2/libarchive/archive_read_disk_posix.c libarchive-3.3.
  			t->d = opendir(".");
  #if HAVE_DIRFD || defined(dirfd)
 +#ifdef __osf__
-+			__archive_ensure_cloexec_flag(dirfd(t->d->__dd_fd));
++			__archive_ensure_cloexec_flag(t->d->__dd_fd);
 +#else
  			__archive_ensure_cloexec_flag(dirfd(t->d));
  #endif
