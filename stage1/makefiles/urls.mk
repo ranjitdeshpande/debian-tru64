@@ -95,4 +95,5 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	http://search.cpan.org/CPAN/authors/id/F/FE/FERREIRA/POD2-Base-0.043.tar.gz \
 	http://search.cpan.org/CPAN/authors/id/K/KU/KUBOTA/Text-WrapI18N-0.06.tar.gz \
 	http://search.cpan.org/CPAN/authors/id/K/KU/KUBOTA/Text-CharWidth-0.04.tar.gz \
-	http://search.cpan.org/CPAN/authors/id/R/RA/RAAB/SGMLSpm-1.1.tar.gz
+	http://search.cpan.org/CPAN/authors/id/R/RA/RAAB/SGMLSpm-1.1.tar.gz \
+	http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_1.22.orig.tar.bz2

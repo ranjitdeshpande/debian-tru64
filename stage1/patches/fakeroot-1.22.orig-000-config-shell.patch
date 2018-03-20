@@ -1,0 +1,25 @@
+
+diff -purN fakeroot-1.22/Makefile.am fakeroot-1.22-patched/Makefile.am
+--- fakeroot-1.22/Makefile.am	2017-08-16 19:26:13 -0700
++++ fakeroot-1.22-patched/Makefile.am	2018-03-20 07:34:27 -0800
+@@ -47,7 +47,7 @@ endif !MACOSX
+ libfakeroot.lo:libfakeroot.c wrapdef.h wrapstruct.h wraptmpf.h
+ 
+ fakerootconfig.h: ./config.status
+-	CONFIG_FILES= CONFIG_HEADERS= /bin/sh ./config.status
++	CONFIG_FILES= CONFIG_HEADERS= $(SHELL) ./config.status
+ 
+ 
+ #Local variables:
+diff -purN fakeroot-1.22/Makefile.in fakeroot-1.22-patched/Makefile.in
+--- fakeroot-1.22/Makefile.in	2017-08-16 19:29:09 -0700
++++ fakeroot-1.22-patched/Makefile.in	2018-03-20 07:39:54 -0800
+@@ -1104,7 +1104,7 @@ uninstall-am: uninstall-binPROGRAMS unin
+ libfakeroot.lo:libfakeroot.c wrapdef.h wrapstruct.h wraptmpf.h
+ 
+ fakerootconfig.h: ./config.status
+-	CONFIG_FILES= CONFIG_HEADERS= /bin/sh ./config.status
++	CONFIG_FILES= CONFIG_HEADERS= $(SHELL) ./config.status
+ 
+ #Local variables:
+ #mode: makefile

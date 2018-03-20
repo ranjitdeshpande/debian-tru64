@@ -1,0 +1,151 @@
+diff -purN fakeroot-1.22/communicate.h fakeroot-1.22-patched/communicate.h
+--- fakeroot-1.22/communicate.h	2017-08-16 19:26:13 -0700
++++ fakeroot-1.22-patched/communicate.h	2018-03-20 07:28:10 -0800
+@@ -69,7 +69,7 @@
+ 	|| (defined __UCLIBC__ && defined __UCLIBC_HAS_LFS__)
+ # define STAT64_SUPPORT
+ #else
+-# ifndef __APPLE__
++# if !defined(__APPLE__) && !defined(__osf__)
+ #  warning Not using stat64 support
+ # endif
+ /* if glibc is 2.0 or older, undefine these again */
+@@ -105,7 +105,11 @@
+ #define FAKEROOTFGID_ENV          "FAKEROOTFGID"
+ #define FAKEROOTDONTTRYCHOWN_ENV  "FAKEROOTDONTTRYCHOWN"
+ 
+-#define FAKELIBDIR                "/usr/lib/fakeroot"
++#ifndef DEBPREFIX
++#define DEBPREFIX		  ""
++#endif
++
++#define FAKELIBDIR                DEBPREFIX "/usr/lib/fakeroot"
+ #define FAKELIBNAME               "libfakeroot.so.0"
+ #ifdef FAKEROOT_FAKENET
+ # define FD_BASE_ENV              "FAKEROOT_FD_BASE"
+diff -purN fakeroot-1.22/configure fakeroot-1.22-patched/configure
+--- fakeroot-1.22/configure	2017-08-16 19:29:08 -0700
++++ fakeroot-1.22-patched/configure	2018-03-20 08:04:06 -0800
+@@ -13049,10 +13049,10 @@ main ()
+ _ACEOF
+ if ac_fn_c_try_compile "$LINENO"; then :
+ 
+-   $as_echo "#define SETREUID_ARG gid_t" >>confdefs.h
++   $as_echo "#define SETREUID_ARG uid_t" >>confdefs.h
+ 
+-   { $as_echo "$as_me:${as_lineno-$LINENO}: result: gid_t" >&5
+-$as_echo "gid_t" >&6; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: uid_t" >&5
++$as_echo "uid_t" >&6; }
+ 
+ else
+ 
+@@ -13077,7 +13077,7 @@ int
+ main ()
+ {
+ 
+-       int setreuid ( gid_t rgid, gid_t egid );
++       int setregid ( gid_t rgid, gid_t egid );
+ 
+   ;
+   return 0;
+@@ -13384,6 +13384,8 @@ case $target_cpu:$target_os in
+ 		;;
+ 	(*:osf*)
+ 		libcpath="/shlib/libc.so"
++		LDPRELOADVAR="_RLD_LIST"
++		LDPRELOADABS=1
+ 		;;
+ 	(*:solaris*)
+ 		libcpath="/lib/libc.so.1"
+diff -purN fakeroot-1.22/faked.c fakeroot-1.22-patched/faked.c
+--- fakeroot-1.22/faked.c	2017-08-16 19:26:13 -0700
++++ fakeroot-1.22-patched/faked.c	2018-03-20 07:25:30 -0800
+@@ -143,11 +143,19 @@
+   union semun {
+     int val;
+     struct semid_ds *buf;
++#ifdef __osf__
++    unsigned short *array;
++#else
+     u_short *array;
++#endif
+   };
+ # endif
+ #endif /* ! FAKEROOT_FAKENET */
+ 
++#if defined(__osf__) && !defined(NSIG)
++#define NSIG (SIGUSR2 + 1)
++#endif
++
+ void process_chown(struct fake_msg *buf);
+ void process_chmod(struct fake_msg *buf);
+ void process_mknod(struct fake_msg *buf);
+diff -purN fakeroot-1.22/libfakeroot.c fakeroot-1.22-patched/libfakeroot.c
+--- fakeroot-1.22/libfakeroot.c	2017-08-16 19:26:13 -0700
++++ fakeroot-1.22-patched/libfakeroot.c	2018-03-20 06:56:19 -0800
+@@ -1446,13 +1446,13 @@ int getresuid(uid_t *ruid, uid_t *euid,
+ }
+ #endif /* HAVE_GETRESUID */
+ 
+-uid_t getgid(void){
++gid_t getgid(void){
+   if (fakeroot_disabled)
+     return next_getgid();
+   return get_faked_gid();
+ }
+ 
+-uid_t getegid(void){
++gid_t getegid(void){
+   if (fakeroot_disabled)
+     return next_getegid();
+   return get_faked_egid();
+@@ -1475,7 +1475,7 @@ int setuid(uid_t id){
+   return set_faked_uid(id);
+ }
+ 
+-int setgid(uid_t id){
++int setgid(gid_t id){
+   if (fakeroot_disabled)
+     return next_setgid(id);
+   return set_faked_gid(id);
+@@ -1487,7 +1487,7 @@ int seteuid(uid_t id){
+   return set_faked_euid(id);
+ }
+ 
+-int setegid(uid_t id){
++int setegid(gid_t id){
+   if (fakeroot_disabled)
+     return next_setegid(id);
+   return set_faked_egid(id);
+diff -purN fakeroot-1.22/scripts/fakeroot.in fakeroot-1.22-patched/scripts/fakeroot.in
+--- fakeroot-1.22/scripts/fakeroot.in	2017-08-16 19:26:13 -0700
++++ fakeroot-1.22-patched/scripts/fakeroot.in	2018-03-20 08:15:25 -0800
+@@ -148,8 +148,8 @@ PID=`echo $KEY_PID|cut -d: -f2`
+ if [ "$WAITINTRAP" -eq 0 ]; then
+   trap "kill -s @signal@ $PID" EXIT INT
+ else
+-  @MACOSX_FALSE@trap 'FAKEROOTKEY=$FAKEROOTKEY @LDLIBPATHVAR@="$PATHS" @LDPRELOADVAR@="$LIB" /bin/ls -l / >/dev/null 2>&1; while kill -s @signal@ $PID 2>/dev/null; do sleep 0.1; done' EXIT INT
+-  @MACOSX_TRUE@trap 'FAKEROOTKEY=$FAKEROOTKEY @LDPRELOADVAR@="$LIB" /bin/ls -l / >/dev/null 2>&1; while kill -s @signal@ $PID 2>/dev/null; do sleep 0.1; done' EXIT INT
++  @MACOSX_FALSE@trap 'FAKEROOTKEY=$FAKEROOTKEY @LDLIBPATHVAR@="$PATHS" @LDPRELOADVAR@="$LIB:DEFAULT" /bin/ls -l / >/dev/null 2>&1; while kill -s @signal@ $PID 2>/dev/null; do sleep 0.1; done' EXIT INT
++  @MACOSX_TRUE@trap 'FAKEROOTKEY=$FAKEROOTKEY @LDPRELOADVAR@="$LIB:DEFAULT" /bin/ls -l / >/dev/null 2>&1; while kill -s @signal@ $PID 2>/dev/null; do sleep 0.1; done' EXIT INT
+ fi
+ 
+ if test -z "$FAKEROOTKEY" || test -z "$PID"; then
+@@ -171,12 +171,12 @@ fi
+ export FAKEROOT_FD_BASE
+ 
+ if test -z "$*"; then
+-  @MACOSX_FALSE@FAKEROOTKEY=$FAKEROOTKEY @LDLIBPATHVAR@="$PATHS" @LDEXTRAVAR@ @LDPRELOADVAR@="$LIB" ${SHELL:-/bin/sh}
+-  @MACOSX_TRUE@FAKEROOTKEY=$FAKEROOTKEY @LDEXTRAVAR@ @LDPRELOADVAR@="$LIB" ${SHELL:-/bin/sh}
++  @MACOSX_FALSE@FAKEROOTKEY=$FAKEROOTKEY @LDLIBPATHVAR@="$PATHS" @LDEXTRAVAR@ @LDPRELOADVAR@="$LIB:DEFAULT" ${SHELL:-/bin/sh}
++  @MACOSX_TRUE@FAKEROOTKEY=$FAKEROOTKEY @LDEXTRAVAR@ @LDPRELOADVAR@="$LIB:DEFAULT" ${SHELL:-/bin/sh}
+   RESULT=$?
+ else
+-  @MACOSX_FALSE@FAKEROOTKEY=$FAKEROOTKEY @LDLIBPATHVAR@="$PATHS" @LDEXTRAVAR@ @LDPRELOADVAR@="$LIB" "$@"
+-  @MACOSX_TRUE@FAKEROOTKEY=$FAKEROOTKEY @LDEXTRAVAR@ @LDPRELOADVAR@="$LIB" "$@"
++  @MACOSX_FALSE@FAKEROOTKEY=$FAKEROOTKEY @LDLIBPATHVAR@="$PATHS" @LDEXTRAVAR@ @LDPRELOADVAR@="$LIB:DEFAULT" "$@"
++  @MACOSX_TRUE@FAKEROOTKEY=$FAKEROOTKEY @LDEXTRAVAR@ @LDPRELOADVAR@="$LIB:DEFAULT" "$@"
+   RESULT=$?
+ fi
+ 
