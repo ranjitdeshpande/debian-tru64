@@ -60,6 +60,7 @@ ifeq ($(NO_STD_CONFIG_FLAGS),)
 			--prefix=$(TARGET_DIR)/usr \
 			--sysconfdir=$(TARGET_DIR)/etc \
 			--localstatedir=$(TARGET_DIR)/var \
+			--host=alpha-dec-osf1 \
 			$(CONFIG_FLAGS))
 else
 	@(cd $(PKGBUILDDIR); $(MKOBJDIR); $(CDOBJDIR); \

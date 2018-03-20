@@ -16,9 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# With a virgin, minimal Tru64 install, there is no GNU make or patch.
-# We build these two utilities via this shell script and then switch to 
-# the makefile infrastructure.
+# With a virgin, minimal Tru64 install, there is no GNU make. We build make
+# via this shell script and then switch to the makefile infrastructure.
 
 BUILDDIR=`pwd`/build
 TARGETDIR=/usr/debian #`pwd`/target
@@ -99,7 +98,8 @@ if [ ! -f ${TARGET} ]; then
 	cd ${PKGBUILD}
 	mkdir -p __obj
 	cd __obj
-	/bin/ksh ../configure --prefix=${TARGETDIR}/usr --without-guile
+	CC=cc /bin/ksh ../configure --prefix=${TARGETDIR}/usr --without-guile \
+		--host=alpha-dec-osf1
 	if [ $? != 0 ]; then
 		exit 1
 	fi
