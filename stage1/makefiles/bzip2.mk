@@ -18,7 +18,8 @@ NAME		:= bzip2
 VERSION		:= 1.0.6
 CC		:= cc
 CFLAGS		= -O2 $$(BIGFILES)
-MAKEVARS	= CC="$(CC)" CFLAGS="$(CFLAGS)"
+LDFLAGS		= -rpath $(TARGET_DIR)/usr/lib
+MAKEVARS	= CC="$(CC)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)"
 
 include makefiles/common.mk
 
