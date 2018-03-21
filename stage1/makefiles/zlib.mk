@@ -16,9 +16,10 @@
 
 NAME		:= zlib
 VERSION		:= 1.2.11
-CONFIG_FLAGS	:=
+CONFIG_FLAGS	= --prefix=$(TARGET_DIR)/usr
 OBJDIR		:= __obj
 CC		= cc
+NO_STD_CONFIG_FLAGS = 1
 
 CFLAGS		:= -O2
 
