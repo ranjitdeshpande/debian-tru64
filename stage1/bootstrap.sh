@@ -99,7 +99,7 @@ if [ ! -f ${TARGET} ]; then
 	mkdir -p __obj
 	cd __obj
 	CC=cc /bin/ksh ../configure --prefix=${TARGETDIR}/usr --without-guile \
-		--host=alpha-dec-osf1
+		--host=alpha-dec-osf5.1
 	if [ $? != 0 ]; then
 		exit 1
 	fi
