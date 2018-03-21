@@ -16,7 +16,7 @@
 
 NAME		:= libiconv
 VERSION		:= 1.15
-CONFIG_FLAGS	:=
+CONFIG_FLAGS	= --enable-shared
 OBJDIR		:= __obj
 CC		= cc
 
