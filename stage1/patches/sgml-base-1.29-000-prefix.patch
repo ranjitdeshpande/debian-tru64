@@ -1,0 +1,12 @@
+diff -purN sgml-base-1.29/tools/update-catalog sgml-base-1.29-patched/tools/update-catalog
+--- sgml-base-1.29/tools/update-catalog	2012-08-26 03:29:36 -0700
++++ sgml-base-1.29-patched/tools/update-catalog	2018-03-26 09:12:22 -0800
+@@ -187,7 +187,7 @@ exit 0;
+     else
+     {
+ 	$type = $super ? 'super' : 'centralized';
+-	$template = "/usr/share/sgml-base/catalog.$type";
++	$template = "/usr/debian/usr/share/sgml-base/catalog.$type";
+ 	print "Reading template $template...\n"
+ 	    if $debug;
+ 	open( TEMPLATE, "<$template" )
