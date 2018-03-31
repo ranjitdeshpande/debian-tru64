@@ -1,0 +1,46 @@
+diff -purN docbook-xsl-1.79.1/Makefile docbook-xsl-1.79.1-patched/Makefile
+--- docbook-xsl-1.79.1/Makefile	2014-02-24 12:04:27 -0800
++++ docbook-xsl-1.79.1-patched/Makefile	2018-03-29 08:09:01 -0800
+@@ -39,6 +39,9 @@ TMP_OUTPUT_DIR=/tmp/smoketest-output/
+ # SMOKETEST_CLEAN_TARGET; e.g. "make check SMOKETEST_CLEAN_TARGET=''"
+ SMOKETEST_CLEAN_TARGET=smoketest-clean
+ 
++all:
++	@echo "Build complete"
++
+ check: smoketest-make-tmp-dir smoketest-normal smoketest-normal-profile smoketest-chunk smoketest-chunk-profile smoketest-man smoketest-man-profile smoketest-two-profile $(SMOKETEST_CLEAN_TARGET)
+ 
+ smoketest-make-tmp-dir:
+@@ -91,3 +94,9 @@ smoketest-two-profile:
+ smoketest-clean:
+ 	$(RM) -r $(TMP_OUTPUT_DIR)
+ 
++install:
++	mkdir -p $(PREFIX)/usr/share/xml/docbook/stylesheet/docbook-xsl
++	mkdir -p $(PREFIX)/etc/xml
++	-cp -af * $(PREFIX)/usr/share/xml/docbook/stylesheet/docbook-xsl
++	-cp -af root-catalog.xml $(PREFIX)/etc/xml/catalog
++	-cp -af docbook-xsl-catalog.xml $(PREFIX)/etc/xml/docbook-xsl.xml
+diff -purN docbook-xsl-1.79.1/docbook-xsl-catalog.xml docbook-xsl-1.79.1-patched/docbook-xsl-catalog.xml
+--- docbook-xsl-1.79.1/docbook-xsl-catalog.xml	1969-12-31 16:00:00 -0800
++++ docbook-xsl-1.79.1-patched/docbook-xsl-catalog.xml	2018-03-29 08:08:39 -0800
+@@ -0,0 +1,8 @@
++<?xml version="1.0"?>
++<!DOCTYPE catalog PUBLIC "-//OASIS//DTD XML Catalogs V1.0//EN"
++  "file:///usr/debian/usr/share/xml/schema/xml-core/catalog.dtd">
++<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
++<delegateURI uriStartString="http://docbook.sourceforge.net/release/xsl/" catalog="file:///usr/debian/usr/share/xml/docbook/stylesheet/docbook-xsl/catalog.xml"/>
++<delegateSystem systemIdStartString="http://docbook.sourceforge.net/release/xsl/" catalog="file:///usr/debian/usr/share/xml/docbook/stylesheet/docbook-xsl/catalog.xml"/>
++</catalog>
++
+diff -purN docbook-xsl-1.79.1/root-catalog.xml docbook-xsl-1.79.1-patched/root-catalog.xml
+--- docbook-xsl-1.79.1/root-catalog.xml	1969-12-31 16:00:00 -0800
++++ docbook-xsl-1.79.1-patched/root-catalog.xml	2018-03-29 08:11:08 -0800
+@@ -0,0 +1,7 @@
++<?xml version="1.0"?>
++<!DOCTYPE catalog PUBLIC "-//OASIS//DTD XML Catalogs V1.0//EN"
++  "file:///usr/debian/usr/share/xml/schema/xml-core/catalog.dtd">
++<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
++<delegateSystem systemIdStartString="http://docbook.sourceforge.net/release/xsl/" catalog="file:///usr/debian/etc/xml/docbook-xsl.xml"/>
++<delegateURI uriStartString="http://docbook.sourceforge.net/release/xsl/" catalog="file:///usr/debian/etc/xml/docbook-xsl.xml"/>
++</catalog>
