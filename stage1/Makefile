@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-PKGS = patch sed gawk zlib gzip bzip2 xz unzip gmp mpfr mpc libiconv \
+PKGS = patch sed gawk libiconv zlib gzip bzip2 xz unzip gmp mpfr mpc \
        tar binutils gcc m4 emacs gettext perl texinfo Locale-gettext \
        help2man icu ncurses readline pcre pcre2 grep flex openssl curl \
        libxml2 expat libarchive dpkg libxslt bison coreutils findutils \
@@ -25,7 +25,7 @@ PKGS = patch sed gawk zlib gzip bzip2 xz unzip gmp mpfr mpc libiconv \
        YAML-Tiny Test-Requires Module-Depends Module-ScanDeps Module-Install \
        Encode-ISO2022 Encode-EUCJPASCII Encode-JISX0213 Encode-HanExtra \
        POD2-Base MIME-Charset Text-CharWidth Text-WrapI18N Unicode-LineBreak \
-       SGMLSpm po4a debhelper cmake
+       SGMLSpm sgml-base xml-core docbook-xsl po4a debhelper fakeroot
 
 all clean clobber:
 	@for pkg in $(PKGS); do \
