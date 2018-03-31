@@ -1,6 +1,24 @@
 diff -purN sgml-base-1.29/tools/update-catalog sgml-base-1.29-patched/tools/update-catalog
 --- sgml-base-1.29/tools/update-catalog	2012-08-26 03:29:36 -0700
-+++ sgml-base-1.29-patched/tools/update-catalog	2018-03-26 09:12:22 -0800
++++ sgml-base-1.29-patched/tools/update-catalog	2018-03-26 10:10:06 -0800
+@@ -100,7 +100,7 @@ if ( $add || $remove )
+ 
+     if ( $super )
+     {
+-	$catalog = '/etc/sgml/catalog';
++	$catalog = '/usr/debian/etc/sgml/catalog';
+     }
+     else
+     {
+@@ -133,7 +133,7 @@ print STDERR "$name: test mode - catalog
+ if ( $super )
+ {
+     print "update-catalog: Suppressing action on super catalog. Invoking trigger instead.\n";
+-    system("dpkg-trigger /etc/sgml");
++    system("dpkg-trigger /usr/debian/etc/sgml");
+     if ( $? != 0 )
+     {
+         print "Invocation of dpkg-trigger failed with status $?.\n";
 @@ -187,7 +187,7 @@ exit 0;
      else
      {
@@ -10,3 +28,14 @@ diff -purN sgml-base-1.29/tools/update-catalog sgml-base-1.29-patched/tools/upda
  	print "Reading template $template...\n"
  	    if $debug;
  	open( TEMPLATE, "<$template" )
+@@ -293,8 +293,8 @@ sub check_catalog($)
+ sub update_super
+ {
+     my(@cats);
+-    my($catdir)="/etc/sgml";
+-    my($supercat)="/var/lib/sgml-base/supercatalog";
++    my($catdir)="/usr/debian/etc/sgml";
++    my($supercat)="/usr/debian/var/lib/sgml-base/supercatalog";
+     my $catfile;
+     opendir(CATDIR, $catdir)
+         or die "cannot open catalog directory $catdir: $!";
