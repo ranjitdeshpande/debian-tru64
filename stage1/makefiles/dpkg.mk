@@ -16,10 +16,7 @@
 
 NAME		:= dpkg
 VERSION		:= 1.19.0.5
-CONFIG_FLAGS	= --host=alpha-dec-osf1 --build=alpha-dec-osf1 \
-		  --sysconfdir=$(TARGET_DIR)/etc \
-		  --localstatedir=$(TARGET_DIR)/var \
-		  --with-libiconv-prefix=$(TARGET_DIR)/usr \
+CONFIG_FLAGS	= --with-libiconv-prefix=$(TARGET_DIR)/usr \
 		  --disable-start-stop-daemon --disable-dselect
 OBJDIR		:= __obj
 CC		= gcc
