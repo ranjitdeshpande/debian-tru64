@@ -98,4 +98,5 @@ URLS := http://mirrors.kernel.org/gnu/make/make-4.2.tar.gz \
 	http://search.cpan.org/CPAN/authors/id/R/RA/RAAB/SGMLSpm-1.1.tar.gz \
 	http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_1.22.orig.tar.bz2 \
 	https://downloads.sourceforge.net/project/docbook/docbook-xsl/1.79.1/docbook-xsl-1.79.1.tar.bz2 \
-	http://http.debian.net/debian/pool/main/s/sgml-base/sgml-base_1.29.tar.xz
+	http://http.debian.net/debian/pool/main/s/sgml-base/sgml-base_1.29.tar.xz \
+	http://http.debian.net/debian/pool/main/x/xml-core/xml-core_0.18.tar.xz
