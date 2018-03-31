@@ -5,7 +5,7 @@ diff -purN dpkg-1.19.0.5/data/ostable dpkg-1.19.0.5-patched/data/ostable
  eabi-uclibc-uclinux	uclinux-uclibceabi	uclinux[^-]*-uclibceabi
  base-uclibc-uclinux	uclinux-uclibc		uclinux[^-]*(-uclibc.*)?
  base-tos-mint		mint			mint[^-]*
-+base-dec-osf1		dec-osf1		osf.*
++base-dec-osf5.1	dec-osf5.1		osf5.*
 diff -purN dpkg-1.19.0.5/data/tupletable dpkg-1.19.0.5-patched/data/tupletable
 --- dpkg-1.19.0.5/data/tupletable	2017-11-02 15:28:26.000000000 -0700
 +++ dpkg-1.19.0.5-patched/data/tupletable	2018-03-12 12:45:18.000000000 -0700
@@ -13,4 +13,4 @@ diff -purN dpkg-1.19.0.5/data/tupletable dpkg-1.19.0.5-patched/data/tupletable
  eabi-uclibc-uclinux-arm		uclinux-armel
  base-uclibc-uclinux-<cpu>	uclinux-<cpu>
  base-tos-mint-m68k		mint-m68k
-+base-dec-osf1-alpha		osf1-alpha
++base-dec-osf5.1-alpha		osf5.1-alpha
