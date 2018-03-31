@@ -58,3 +58,14 @@ installs.
 
 Switched target to /usr/debian since final packages will all look for files
 in their final resting place. This is true even while building packages.
+
+### March 19th 2018
+
+Lots of small things got missed in checkins so the re-build was a good
+excercise to fix these bugs.
+
+### March 31st 2018
+
+Everything now builds. Removed cmake since it is not needed for this
+phase. Docbook files installed locally. Mostly complete but everything
+builds.
