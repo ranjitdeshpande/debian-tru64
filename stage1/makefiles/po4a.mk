@@ -23,7 +23,8 @@ INC		= -I$(TARGET_DIR)/usr/include
 OTHERLDFLAGS	= -L$(TARGET_DIR)/usr/lib
 PERL		= $(TARGET_DIR)/usr/bin/perl
 MAKEVARS	= OTHERLDFLAGS=$(OTHERLDFLAGS)
+XML_CATALOG_FILES = $(TARGET_DIR)/etc/xml/catalog
 
-export INC OTHERLDFLAGS
+export INC OTHERLDFLAGS XML_CATALOG_FILES
 
 include makefiles/perlmodbuild.mk
