@@ -1,0 +1,42 @@
+diff -purN xml-core-0.18/debhelper/Makefile xml-core-0.18-patched/debhelper/Makefile
+--- xml-core-0.18/debhelper/Makefile	2016-09-30 09:59:31 -0700
++++ xml-core-0.18-patched/debhelper/Makefile	2018-03-26 09:28:20 -0800
+@@ -8,7 +8,7 @@ include ../MAKE/include
+ ## ----------------------------------------------------------------------
+ ## Debhelper directory definitions
+ debhelper_dir	= $(share_dir)/debhelper
+-dh_sequences_dir = $(share_dir)/perl5/Debian/Debhelper/Sequence
++dh_sequences_dir = $(prefix)/lib/perl5/5.26.1/Debian/Debhelper/Sequence
+ autoscripts_dir	= $(debhelper_dir)/autoscripts
+ 
+ ## ----------------------------------------------------------------------
+diff -purN xml-core-0.18/tools/update-xmlcatalog xml-core-0.18-patched/tools/update-xmlcatalog
+--- xml-core-0.18/tools/update-xmlcatalog	2016-09-30 09:59:31 -0700
++++ xml-core-0.18-patched/tools/update-xmlcatalog	2018-03-26 09:21:55 -0800
+@@ -115,7 +115,7 @@ time that XML catalog file is updated us
+ 
+ =head1 SEE ALSO
+ 
+-F</usr/share/doc/xml-core/README.Debian>
++F</usr/debian/usr/share/doc/xml-core/README.Debian>
+ 
+ =head1 AUTHOR
+ 
+@@ -545,7 +545,7 @@ sub write_catalog
+     my @catalog = ();
+ 
+     ## ------------------------------------------------------------------
+-    my $header = '/usr/share/xml-core/catalog.header';
++    my $header = '/usr/debian/usr/share/xml-core/catalog.header';
+     open( HEADER, '<', $header )
+ 	or die "$name: cannot open catalog header $header for reading: $!";
+     while ( <HEADER> )
+@@ -567,7 +567,7 @@ sub write_catalog
+     }
+ 
+     ## ------------------------------------------------------------------
+-    my $footer = '/usr/share/xml-core/catalog.footer';
++    my $footer = '/usr/debian/usr/share/xml-core/catalog.footer';
+     open( FOOTER, '<', $footer )
+ 	or die "$name: cannot open catalog footer $footer for reading: $!";
+     while ( <FOOTER> )
